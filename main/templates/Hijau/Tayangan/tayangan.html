@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Show Listings</title>
+<style>
+  body {
+    background-color: #d8bba9; /* base color */
+    color: #3b3c37; /* dark slate gray */
+    font-family: Arial, sans-serif;
+  }
+  .search-bar {
+    background-color: #d7ab8e; /* beige */
+    padding: 1rem;
+  }
+  input[type="search"] {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: none;
+    border-radius: 4px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+  }
+  th {
+    background-color: #97634e; /* medium brown */
+    color: #ffffff;
+    padding: 0.5rem;
+    border: 1px solid #664d48; /* dark brown */
+  }
+  td {
+    color: #3b3c37; /* dark slate gray */
+    padding: 0.5rem;
+    border: 1px solid #c78d75; /* intermediate brown */
+    text-align: center;
+  }
+  .button {
+    background-color: #664d48; /* dark brown */
+    color: #ffffff;
+    border: none;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+
+<div class="search-bar">
+  <input type="search" id="searchBox" placeholder="Search shows...">
+</div>
+
+<h1>Top Shows This Week</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Rank</th>
+      <th>Title</th>
+      <th>Synopsis</th>
+      <th>Trailer URL</th>
+      <th>Release Date</th>
+      <th>Total View Last 7 Days</th>
+      <th>View Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Rows with show data will go here -->
+  </tbody>
+</table>
+
+<h2>Films</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Synopsis</th>
+      <th>Trailer URL</th>
+      <th>Release Date</th>
+      <th>View Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Rows with film data will go here -->
+  </tbody>
+</table>
+
+<h2>Series</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Synopsis</th>
+      <th>Trailer URL</th>
+      <th>Release Date</th>
+      <th>View Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Rows with series data will go here -->
+  </tbody>
+</table>
+
+</body>
+</html>
