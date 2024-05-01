@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Series Page</title>
+<style>
+  body {
+    background-color: #d8bba9; /* base color */
+    color: #3b3c37; /* dark slate gray */
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  h1, h2 {
+    color: #3b3c37;
+  }
+  ul, p {
+    margin: 10px 0;
+    padding: 0;
+  }
+  li {
+    margin-bottom: 5px;
+  }
+  .section {
+    background-color: #d7ab8e; /* light beige */
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+  }
+  .button {
+    background-color: #97634e; /* medium brown */
+    color: #ffffff;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .info {
+    background-color: #c78d75; /* intermediate brown */
+    padding: 10px;
+    border-radius: 5px;
+  }
+  .info p, .info ul {
+    margin: 5px 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="section">
+  <h1>Judul: <span id="seriesTitle"><data></span></h1>
+  <h2>Episodes:</h2>
+  <ul id="episodeLinks">
+    <li><a href="#">Episode 1</a></li>
+    <li><a href="#">Episode N</a></li>
+  </ul>
+  <a href="#" class="button">Download Show</a>
+  <a href="#" class="button">Favorite Show</a>
+</div>
+
+<div class="info">
+  <p>Total View: <span id="totalViews"><data></span></p>
+  <p>Rating: <span id="rating"><data></span></p>
+  <p>Sinopsis: <span id="synopsis"><data></span></p>
+  <p>Genre:</p>
+  <ul id="genres">
+    <li><data_genre_1></li>
+    <li><data_genre_n></li>
+  </ul>
+  <p>Country: <span id="country"><data></span></p>
+  <p>Cast:</p>
+  <ul id="cast">
+    <li><nama_pemain_1></li>
+    <li><nama_pemain_n></li>
+  </ul>
+  <p>Screenwriters:</p>
+  <ul id="screenwriters">
+    <li><nama_penulis_skenario_1></li>
+    <li><nama_penulis_skenario_3></li>
+  </ul>
+  <p>Director: <span id="director"><data></span></p>
+</div>
+
+<!-- Include the reviews section here, which you may want to structure similarly -->
+<div class="section">
+  <h2>Reviews:</h2>
+  <!-- Reviews would be listed here -->
+</div>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search Results for Trailers</title>
+<style>
+  body {
+    background-color: #d8bba9; /* light peach tone */
+    font-family: Arial, sans-serif;
+    color: #3b3c37; /* very dark brown */
+    padding: 20px;
+  }
+  .search-box {
+    background-color: #d7ab8e; /* light beige */
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+  }
+  input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 8px;
+    border: 1px solid #664d48; /* dark brown */
+    border-radius: 4px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  th, td {
+    border: 1px solid #97634e; /* medium brown */
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background-color: #c78d75; /* intermediate brown */
+    color: #ffffff;
+  }
+  td {
+    background-color: #f0ece3;
+  }
+  .no-result {
+    background-color: #f0ece3;
+    text-align: center;
+    padding: 10px;
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+
+<div class="search-box">
+  <label for="searchInput">HASIL PENCARIAN</label>
+  <input type="text" id="searchInput" placeholder="Input Pencarian Tayangan berdasarkan judul">
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Judul</th>
+      <th>Sinopsis Trailer</th>
+      <th>URL Trailer</th>
+      <th>Tanggal Rilis Trailer</th>
+    </tr>
+  </thead>
+  <tbody id="searchResults">
+    <!-- Search results
