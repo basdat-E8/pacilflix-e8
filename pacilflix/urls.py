@@ -26,5 +26,5 @@ urlpatterns = [
     path('authentication/', include('authentication.urls')),
     path('trailer/', include('trailer.urls')),
     path('tayangan/', include('tayangan.urls')),
-    path('ulasasn/', include('ulasan.urls')),
+    path('ulasan/', include('ulasan.urls')),
 ]
