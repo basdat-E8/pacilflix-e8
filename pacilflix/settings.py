@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'favorit',
     'langganan',
     'authentication',
+    'kontributor',
 ]
 
 MIDDLEWARE = [

@@ -27,4 +27,5 @@ urlpatterns = [
     path('trailer/', include('trailer.urls')),
     path('tayangan/', include('tayangan.urls')),
     path('ulasan/', include('ulasan.urls')),
+    path('kontributor/', include('kontributor.urls')),
 ]
