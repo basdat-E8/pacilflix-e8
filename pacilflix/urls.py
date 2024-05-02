@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('unduhan/', include('unduhan.urls')),
     path('favorit/', include('favorit.urls')),
-]
+    path('langganan/', include('langganan.urls')),
+]   

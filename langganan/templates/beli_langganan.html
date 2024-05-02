@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+<style>
+    body {
+        background-color:  rgb(31, 31, 61); /* Warna ungu */
+        color: white;
+        font-family: Arial, sans-serif;
+    }
+
+    /* Style untuk judul */
+    .judul {
+        text-align: center;
+        color: white;
+    }
+
+    /* Style untuk isi tabel */
+    .table {
+        background-color: transparent;
+        color: white;
+        text-align: center; /* Rata tengah tulisan pada tabel */
+        border-color: white;
+    }
+
+    .table th {
+        background-color: rgba(109, 109, 169, 0.5);
+        border-color: white;
+    }
+
+    .btn-primary,
+    .btn-primary:hover {
+        background-color: #17a2b8;
+        border-color: #17a2b8;
+    }
+
+    .btn-danger,
+    .btn-danger:hover {
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+</style>
+
+<div class="container mt-5">
+
+    <h1 class="mb-4 judul">Halaman Beli</h1>
+
+    <!-- Informasi Paket yang Ingin Dibeli -->
+    <div class="mb-5">
+        <h2 class="judul">Informasi Paket yang Ingin Dibeli</h2>
+        <table class="table">
+            <thead  >
+                <tr>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Harga</th>
+                    <th scope="col">Resolusi Layar</th>
+                    <th scope="col">Dukungan Perangkat</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dummy data for package to be purchased -->
+                <tr>
+                    <td>Subscription B</td>
+                    <td>$15/month</td>
+                    <td>4K</td>
+                    <td>Mobile, Tablet, PC, TV</td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pilih Metode Pembayaran -->
+    <div class="mb-5">
+        <h2 class="judul">Pilih Metode Pembayaran</h2>
+        <select class="form-control mb-3" id="metode_pembayaran">
+            <option value="transferbank">Transfer Bank</option>
+            <option value="kartukredit">Kartu Kredit</option>
+            <option value="ewallet">E-Wallet</option>
+        </select>
+        <button class="btn btn-primary btn-block">Bayar</button>
+    </div>
+
+</div>
+    
+{% endblock content %}
