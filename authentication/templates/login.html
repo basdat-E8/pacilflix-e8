@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% include 'navbar.html' %}
+<style>
+  .cover {
+    background-size: cover;
+    background-position: center;
+    background-color: rgb(31, 31, 61);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+  }
+
+  .cover-text {
+    padding: 20px;
+    border-radius: 10px;
+  }
+</style>        
+
+<div class="text-center">
+  <div class="cover">
+    <div class="cover-text">
+      <h1>Login</h1>
+    </div>
+  </div>
+</div>
+{% endblock content %}
