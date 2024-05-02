@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+{% include 'navbar.html' %}
+<style>
+    body {
+        background-color:  rgb(31, 31, 61); /* Warna ungu */
+        color: white;
+        font-family: Arial, sans-serif;
+    }
+
+    .cover {
+        background-size: cover;
+        background-position: center;
+        background-color:  rgb(31, 31, 61); /* Warna ungu */
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: white;
+    }
+
+    .cover-text {
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    /* Style untuk judul */
+    .judul {
+        text-align: center;
+        color: white;
+    }
+
+    /* Style untuk isi tabel */
+    .table {
+        background-color: transparent;
+        color: white;
+        text-align: center; /* Rata tengah tulisan pada tabel */
+    }
+
+    .table th,
+    .table td {
+        border-color: white;
+    }
+
+    .table th {
+        background-color: rgba(109, 109, 169, 0.5);
+    }
+
+    .btn-primary,
+    .btn-primary:hover {
+        background-color: #17a2b8;
+        border-color: #17a2b8;
+    }
+
+    .btn-danger,
+    .btn-danger:hover {
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+    .modal-content {
+        background-color: rgba(31, 31, 61, 0.9);
+        color: white;
+    }
+
+    .modal-header {
+        border-bottom: none;
+    }
+
+    .modal-footer {
+        border-top: none;
+    }
+</style>
+
+
+
+<div class="container mt-5" style="padding-top: 25px;">
+    <h1 class="judul">Daftar Favorit</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col" style="color: white;">Judul</th>
+                <th scope="col" style="color: white;">Waktu Ditambahkan</th>
+                <th scope="col" style="color: white;">Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Isi tabel dengan daftar favorit -->
+            <tr>
+                <td>Contoh Tayangan 1</td>
+                <td>2024-04-30 10:00</td>
+                <td><button class="btn btn-danger" onclick="hapusTayangan(1)">Hapus</button></td>
+            </tr>
+            <tr>
+                <td>Contoh Tayangan 2</td>
+                <td>2024-04-29 15:30</td>
+                <td><button class="btn btn-danger" onclick="hapusTayangan(2)">Hapus</button></td>
+            </tr>
+            <!-- tambahkan baris untuk setiap tayangan di favorit -->
+        </tbody>
+    </table>
+
+    <!-- Tombol untuk menambah tayangan ke daftar favorit -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTambahFavorit">
+        Tombol Favorit Tayangan
+    </button>
+
+    <!-- Modal untuk menambah tayangan ke daftar favorit -->
+    <div class="modal fade" id="modalTambahFavorit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">TAMBAH KE DAFTAR FAVORIT</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="judulTayangan" class="form-label">Judul Daftar Favorit:</label>
+                            <select class="form-select" aria-label="Default select example" id="judulTayangan">
+                                <option selected>Pilih daftar favorit...</option>
+                                <option value="1">Favorit 1</option>
+                                <option value="2">Favorit 2</option>
+                                <option value="3">Favorit 3</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <!-- Ganti type="submit" jika tombol Tambah akan menyampaikan data form -->
+                    <button type="button" class="btn btn-primary" onclick="tambahKeDaftarFavorit()">Tambah</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <!-- Tambahkan script jika diperlukan -->
+    <script>
+        function tambahKeDaftarFavorit() {
+            // Logika untuk menambah tayangan ke daftar favorit
+            // Contoh: Ambil nilai judul tayangan dari form
+            var judulTayangan = document.getElementById('judulTayangan').value;
+            // Lakukan operasi penambahan ke daftar favorit
+            console.log('Tambah ke daftar favorit:', judulTayangan);
+        }
+
+        // Fungsi untuk menghapus tayangan dari daftar favorit
+        function hapusTayangan(id) {
+            // Logika untuk menghapus tayangan dari daftar
+            alert("Tayangan dengan ID " + id + " telah dihapus dari daftar favorit.");
+        }
+    </script>
+{% endblock %}
+

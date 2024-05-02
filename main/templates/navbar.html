@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PacilFlix</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: rgb(31, 31, 61);
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+        }
+
+        .navbar-nav .nav-link {
+            color: white;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .navbar-toggler {
+            border-color: white;
+        }
+
+        .navbar-toggler-icon {
+            background-color: white;
+        }
+
+        .navbar-collapse {
+            justify-content: flex-end;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">PacilFlix</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Trailer Tayangan</a>
+                </li>
+                <li class="nav-item" id="daftar-tayangan">
+                    <a class="nav-link" href="#">Daftar Tayangan</a>
+                </li>
+                <li class="nav-item" id="daftar-kontributor">
+                    <a class="nav-link" href="#">Daftar Kontributor</a>
+                </li>
+                <li class="nav-item" id="kelola-daftar-favorit">
+                    <a class="nav-link" href="/favorit/">Kelola Daftar Favorit</a>
+                </li>
+                <li class="nav-item" id="kelola-daftar-unduhan">
+                    <a class="nav-link" href="/unduhan/">Kelola Daftar Unduhan</a>
+                </li>
+                <li class="nav-item" id="kelola-langganan">
+                    <a class="nav-link" href="#">Kelola Langganan</a>
+                </li>
+                <li class="nav-item" id="logout">
+                    <a class="nav-link" href="#">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<script>
+    // Fungsi untuk menampilkan navbar sesuai dengan status login
+    function showNavbar(isLoggedIn) {
+        const daftarTayangan = document.getElementById('daftar-tayangan');
+        const daftarKontributor = document.getElementById('daftar-kontributor');
+        const kelolaDaftarFavorit = document.getElementById('kelola-daftar-favorit');
+        const kelolaDaftarUnduhan = document.getElementById('kelola-daftar-unduhan');
+        const kelolaLangganan = document.getElementById('kelola-langganan');
+        const logout = document.getElementById('logout');
+
+        if (isLoggedIn) {
+            daftarTayangan.style.display = 'block';
+            daftarKontributor.style.display = 'block';
+            kelolaDaftarFavorit.style.display = 'block';
+            kelolaDaftarUnduhan.style.display = 'block';
+            kelolaLangganan.style.display = 'block';
+            logout.style.display = 'block';
+        } else {
+            daftarTayangan.style.display = 'none';
+            daftarKontributor.style.display = 'none';
+            kelolaDaftarFavorit.style.display = 'none';
+            kelolaDaftarUnduhan.style.display = 'none';
+            kelolaLangganan.style.display = 'none';
+            logout.style.display = 'none';
+        }
+    }
+
+    // Contoh penggunaan: jika pengguna belum login
+    showNavbar(false); // Ubah menjadi true jika pengguna sudah login
+</script>
+
+<!-- Bootstrap JS dan jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

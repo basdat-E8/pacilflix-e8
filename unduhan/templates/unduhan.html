@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    body {
+        background-color:  rgb(31, 31, 61); /* Warna ungu */
+        color: white;
+        font-family: Arial, sans-serif;
+    }
+
+    /* Style untuk judul */
+    .judul {
+        text-align: center;
+        color: white;
+    }
+
+    /* Style untuk isi tabel */
+    .table {
+        background-color: transparent;
+        color: white;
+        text-align: center; /* Rata tengah tulisan pada tabel */
+        border-color: white;
+    }
+
+    .table th {
+        background-color: rgba(109, 109, 169, 0.5);
+        border-color: white;
+    }
+
+    .btn-primary,
+    .btn-primary:hover {
+        background-color: #17a2b8;
+        border-color: #17a2b8;
+    }
+
+    .btn-danger,
+    .btn-danger:hover {
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+</style>
+
+    <div class="container mt-5">
+
+        <h1 class="mb-4">Daftar Unduhan</h1>
+
+        <form action="" method="GET" class="mb-4">
+            <div class="form-group">
+                <label for="tipe_filter">Filter by Tipe:</label>
+                <select name="tipe_filter" id="tipe_filter" class="form-control">
+                    <option value="">All</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <!-- Add more options as needed -->
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </form>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Tipe</th>
+                    <th scope="col">Jenis Kelamin</th>
+                    <th scope="col">Kewarganegaraan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>John Doe</td>
+                    <td>A</td>
+                    <td>Male</td>
+                    <td>USA</td>
+                </tr>
+                <tr>
+                    <td>Jane Smith</td>
+                    <td>B</td>
+                    <td>Female</td>
+                    <td>UK</td>
+                </tr>
+                <tr>
+                    <td>Michael Johnson</td>
+                    <td>A</td>
+                    <td>Male</td>
+                    <td>Canada</td>
+                </tr>
+                <tr>
+                    <td>Sarah Lee</td>
+                    <td>C</td>
+                    <td>Female</td>
+                    <td>Australia</td>
+                </tr>
+                <tr>
+                    <td>David Brown</td>
+                    <td>B</td>
+                    <td>Male</td>
+                    <td>Germany</td>
+                </tr>
+            </tbody>
+            <!-- <tbody>
+                {% for unduhan in unduhan_list %}
+                <tr>
+                    <td>{{ unduhan.nama }}</td>
+                    <td>{{ unduhan.tipe }}</td>
+                    <td>{{ unduhan.jenis_kelamin }}</td>
+                    <td>{{ unduhan.kewarganegaraan }}</td>
+                </tr>
+                {% endfor %}
+            </tbody> -->
+        </table>
+
+    </div>
+{% endblock content %}

@@ -1,0 +1,149 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Kelola Langganan</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body> -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% include 'navbar.html' %}
+
+<style>
+    body {
+        background-color:  rgb(31, 31, 61); /* Warna ungu */
+        color: white;
+        font-family: Arial, sans-serif;
+    }
+
+    /* Style untuk judul */
+    .judul {
+        text-align: center;
+        color: white;
+    }
+
+    /* Style untuk isi tabel */
+    .table {
+        background-color: transparent;
+        color: white;
+        text-align: center; /* Rata tengah tulisan pada tabel */
+        border-color: white;
+    }
+
+    .table th {
+        background-color: rgba(109, 109, 169, 0.5);
+        border-color: white;
+    }
+
+    .btn-primary,
+    .btn-primary:hover {
+        background-color: #17a2b8;
+        border-color: #17a2b8;
+    }
+
+    .btn-danger,
+    .btn-danger:hover {
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+</style>
+
+<div class="container mt-5" style="padding-top: 25px;">
+
+    <h1 class="mb-4">Halaman Kelola Langganan</h1>
+
+    <!-- Paket Langganan Aktif -->
+    <div class="mb-5">
+        <h2>Paket Langganan Aktif</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Harga</th>
+                    <th scope="col">Resolusi Layar</th>
+                    <th scope="col">Dukungan Perangkat</th>
+                    <th scope="col">Tanggal Dimulai</th>
+                    <th scope="col">Tanggal Akhir</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dummy data for active subscription -->
+                <tr>
+                    <td>Subscription A</td>
+                    <td>$10/month</td>
+                    <td>1080p</td>
+                    <td>Mobile, Tablet, PC</td>
+                    <td>2024-01-01</td>
+                    <td>2024-12-31</td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pilih Paket Lain -->
+    <div class="mb-5">
+        <h2>Pilih Paket Lain</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Harga</th>
+                    <th scope="col">Resolusi Layar</th>
+                    <th scope="col">Dukungan Perangkat</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dummy data for available subscriptions -->
+                <tr>
+                    <td>Subscription B</td>
+                    <td>$15/month</td>
+                    <td>4K</td>
+                    <td>Mobile, Tablet, PC, TV</td>
+                    <td><button class="btn btn-primary">Beli</button></td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Riwayat Transaksi -->
+    <div>
+        <h2>Riwayat Transaksi</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Nama Paket</th>
+                    <th scope="col">Tanggal Dimulai</th>
+                    <th scope="col">Tanggal Akhir</th>
+                    <th scope="col">Metode Pembayaran</th>
+                    <th scope="col">Tanggal Pembayaran</th>
+                    <th scope="col">Total Pembayaran</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dummy data for transaction history -->
+                <tr>
+                    <td>Subscription A</td>
+                    <td>2023-01-01</td>
+                    <td>2023-12-31</td>
+                    <td>Credit Card</td>
+                    <td>2023-01-05</td>
+                    <td>$120</td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+{% endblock content %}
+<!-- </body>
+</html> -->
