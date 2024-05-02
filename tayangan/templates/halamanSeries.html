@@ -1,18 +1,25 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+{% include 'navbar.html' %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Series Page</title>
+
 <style>
   body {
-    background-color: #d8bba9; /* base color */
-    color: #3b3c37; /* dark slate gray */
+    background-color: #1f1f3d; /* dark bluish-gray, replacing the light peach tone */
+    color: #f0ece3; /* light color for readability, replacing the dark slate gray */
     font-family: Arial, sans-serif;
     padding: 20px;
   }
   h1, h2 {
-    color: #3b3c37;
+    color: #f0ece3; /* ensuring headers are readable against the dark background */
   }
   ul, p {
     margin: 10px 0;
@@ -22,13 +29,13 @@
     margin-bottom: 5px;
   }
   .section {
-    background-color: #d7ab8e; /* light beige */
+    background-color: #292947; /* darker bluish-gray, replacing light beige */
     padding: 10px;
     margin-bottom: 20px;
     border-radius: 5px;
   }
   .button {
-    background-color: #97634e; /* medium brown */
+    background-color: #3d1f1f; /* dark reddish-brown, replacing medium brown */
     color: #ffffff;
     padding: 5px 15px;
     border: none;
@@ -38,7 +45,7 @@
     display: inline-block;
   }
   .info {
-    background-color: #c78d75; /* intermediate brown */
+    background-color: #0b0b29; /* very dark blue, replacing intermediate brown */
     padding: 10px;
     border-radius: 5px;
   }
@@ -46,6 +53,7 @@
     margin: 5px 0;
   }
 </style>
+
 </head>
 <body>
 
@@ -91,3 +99,5 @@
 
 </body>
 </html>
+
+{% endblock content %}

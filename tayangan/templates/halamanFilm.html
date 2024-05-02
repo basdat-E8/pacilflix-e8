@@ -1,25 +1,32 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+{% include 'navbar.html' %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Film Page</title>
+
 <style>
   body {
-    background-color: #d8bba9; /* light peach tone */
+    background-color: #1f1f3d; /* dark bluish-gray */
     font-family: Arial, sans-serif;
-    color: #3b3c37; /* very dark brown */
+    color: #f0ece3; /* light color for readability */
     padding: 20px;
   }
   .section {
-    background-color: #d7ab8e; /* light beige */
+    background-color: #292947; /* darker blue-gray */
     padding: 10px;
     margin-bottom: 20px;
     border-radius: 5px;
   }
   .button {
-    background-color: #97634e; /* medium brown */
-    color: #ffffff;
+    background-color: #3d1f1f; /* dark reddish-brown */
+    color: #ffffff; /* white for contrast */
     padding: 5px 15px;
     border: none;
     border-radius: 5px;
@@ -29,7 +36,7 @@
     margin: 5px;
   }
   .info {
-    background-color: #c78d75; /* intermediate brown */
+    background-color: #0b0b29; /* very dark blue */
     padding: 10px;
     border-radius: 5px;
   }
@@ -39,11 +46,12 @@
   }
   li {
     margin-bottom: 5px;
-    background-color: #f0ece3; /* light background for items */
+    background-color: #f0ece3; /* light grayish tone for item background */
     padding: 5px;
     border-radius: 4px;
   }
 </style>
+
 </head>
 <body>
 
@@ -63,18 +71,15 @@
   <p>Genre:</p>
   <ul id="genres">
     <li><nama_genre_1></li>
-    <li><nama_genre_n></li>
   </ul>
   <p>Country of Origin: <span id="country"><data></span></p>
   <p>Cast:</p>
   <ul id="cast">
     <li><nama_pemain_1></li>
-    <li><nama_pemain_n></li>
   </ul>
   <p>Screenwriters:</p>
   <ul id="screenwriters">
     <li><nama_penulis_skenario_1></li>
-    <li><nama_penulis_skenario_3></li>
   </ul>
   <p>Director: <span id="director"><data></span></p>
 </div>
@@ -86,8 +91,9 @@
 </div>
 
 <script>
-    //Function
 </script>
 
 </body>
 </html>
+
+{% endblock content %}

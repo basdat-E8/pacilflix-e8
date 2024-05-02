@@ -1,17 +1,24 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+{% include 'navbar.html' %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Show Listings</title>
+
 <style>
   body {
-    background-color: #d8bba9; /* base color */
-    color: #3b3c37; /* dark slate gray */
+    background-color: #1f1f3d; /* dark blue */
+    color: #f0ece3; /* adjusted light color for better readability */
     font-family: Arial, sans-serif;
   }
   .search-bar {
-    background-color: #d7ab8e; /* beige */
+    background-color: #292947; /* darker blue */
     padding: 1rem;
   }
   input[type="search"] {
@@ -27,19 +34,20 @@
     margin-top: 1rem;
   }
   th {
-    background-color: #97634e; /* medium brown */
+    background-color: #33335b; /* medium blue */
     color: #ffffff;
     padding: 0.5rem;
-    border: 1px solid #664d48; /* dark brown */
+    border: 1px solid #0b0b29; /* very dark blue */
   }
   td {
-    color: #3b3c37; /* dark slate gray */
+    background-color: #f0ece3; /* light color for contrast */
+    color: #3d1f1f; /* reddish-brown */
     padding: 0.5rem;
-    border: 1px solid #c78d75; /* intermediate brown */
+    border: 1px solid #3d1f1f; /* reddish-brown */
     text-align: center;
   }
   .button {
-    background-color: #664d48; /* dark brown */
+    background-color: #3d1f1f; /* reddish-brown */
     color: #ffffff;
     border: none;
     padding: 0.5rem 1rem;
@@ -50,6 +58,7 @@
     border-radius: 4px;
   }
 </style>
+
 </head>
 <body>
 
@@ -110,3 +119,5 @@
 
 </body>
 </html>
+
+{% endblock content %}
