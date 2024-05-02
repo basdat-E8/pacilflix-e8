@@ -23,4 +23,5 @@ urlpatterns = [
     path('unduhan/', include('unduhan.urls')),
     path('favorit/', include('favorit.urls')),
     path('langganan/', include('langganan.urls')),
-]   
+    path('authentication/', include('authentication.urls')),
+]

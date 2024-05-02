@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'unduhan',
     'favorit',
     'langganan',
+    'authentication',
 ]
 
 MIDDLEWARE = [
