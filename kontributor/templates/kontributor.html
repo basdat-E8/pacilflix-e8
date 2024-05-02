@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
+
+{% include 'navbar.html' %}
 <style>
     body {
         background-color:  rgb(31, 31, 61); /* Warna ungu */
@@ -25,6 +29,7 @@
     .table th {
         background-color: rgba(109, 109, 169, 0.5);
         border-color: white;
+        color: white;
     }
 
     .btn-primary,
@@ -40,24 +45,17 @@
     }
 </style>
 
-    <div class="container mt-5">
+    <div class="container mt-5" style="padding-top: 40px;">
 
-        <h1 class="mb-4">Daftar Unduhan</h1>
+        <h1 class="mb-4">Daftar Kontributor</h1>
 
-        <form action="" method="GET" class="mb-4">
-            <div class="form-group">
-                <label for="tipe_filter">Filter by Tipe:</label>
-                <select name="tipe_filter" id="tipe_filter" class="form-control">
-                    <option value="">All</option>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
-                    <!-- Add more options as needed -->
-                </select>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search by Tipe" aria-label="Search by Tipe" aria-describedby="button-search">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="button" id="button-search">Search</button>
             </div>
-            <button type="submit" class="btn btn-primary">Filter</button>
-        </form>
-
+        </div>
+        
         <table class="table">
             <thead>
                 <tr>
@@ -112,4 +110,9 @@
         </table>
 
     </div>
+
+    <script>
+        showNavbar(true);
+    </script>
+
 {% endblock content %}
