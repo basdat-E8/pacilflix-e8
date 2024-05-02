@@ -24,4 +24,7 @@ urlpatterns = [
     path('favorit/', include('favorit.urls')),
     path('langganan/', include('langganan.urls')),
     path('authentication/', include('authentication.urls')),
+    path('trailer/', include('trailer.urls')),
+    path('tayangan/', include('tayangan.urls')),
+    path('ulasasn/', include('ulasan.urls')),
 ]

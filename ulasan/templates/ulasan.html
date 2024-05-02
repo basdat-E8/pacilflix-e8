@@ -1,17 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+{% include 'navbar.html' %}
+
 <title>Reviews</title>
+
 <style>
   body {
-    background-color: #d8bba9; /* base color */
-    color: #3b3c37; /* dark slate gray */
+    background-color: #1f1f3d; /* updated to dark bluish-gray */
+    color: #f0ece3; /* light color for readability */
     font-family: Arial, sans-serif;
   }
   .review-section {
-    background-color: #d7ab8e; /* beige */
+    background-color: #292947; /* updated to darker blue-gray */
     padding: 1rem;
     margin: 1rem;
     border-radius: 8px;
@@ -19,13 +21,13 @@
   .review-form input[type="text"], .review-form select {
     padding: 0.5rem;
     margin: 0.5rem 0;
-    border: 1px solid #97634e; /* medium brown */
+    border: 1px solid #33335b; /* updated to medium blue-gray */
     border-radius: 4px;
     display: block;
     width: 100%;
   }
   .submit-button {
-    background-color: #664d48; /* dark brown */
+    background-color: #3d1f1f; /* updated to dark reddish-brown */
     color: #ffffff;
     padding: 0.5rem 1rem;
     border: none;
@@ -39,17 +41,19 @@
     padding-left: 0;
   }
   .review-list li {
-    background-color: #c78d75; /* intermediate brown */
+    background-color: #0b0b29; /* updated to very dark blue */
     margin-bottom: 0.5rem;
     padding: 0.5rem;
     border-radius: 4px;
   }
 </style>
+
+
 </head>
 <body>
 
 <div class="review-section">
-  <h2>BAGIAN ULASAN</h2>
+  <h2>Bagian Ulasan</h2>
   <form class="review-form">
     <input type="text" id="reviewDescription" name="reviewDescription" placeholder="Input untuk deskripsi ulasan">
     <select id="rating" name="rating">
@@ -69,4 +73,5 @@
 </div>
 
 </body>
-</html>
+
+{% endblock content %}

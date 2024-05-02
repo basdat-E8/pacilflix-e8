@@ -1,18 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+{% include 'navbar.html' %}
+
 <title>Search Results for Trailers</title>
 <style>
   body {
-    background-color: #d8bba9; /* light peach tone */
+    background-color: #1f1f3d; /* dark bluish-gray, replacing light peach tone */
     font-family: Arial, sans-serif;
-    color: #3b3c37; /* very dark brown */
+    color: #f0ece3; /* adjusted to a lighter tone for readability, replacing very dark brown */
     padding: 20px;
   }
   .search-box {
-    background-color: #d7ab8e; /* light beige */
+    background-color: #292947; /* darker blue-gray, replacing light beige */
     padding: 10px;
     margin-bottom: 20px;
     border-radius: 5px;
@@ -21,27 +22,27 @@
     width: 100%;
     padding: 8px;
     margin-top: 8px;
-    border: 1px solid #664d48; /* dark brown */
+    border: 1px solid #33335b; /* medium blue-gray, replacing dark brown */
     border-radius: 4px;
   }
   table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #ffffff;
+    background-color: #f0ece3; /* light grayish tone for contrast, replacing white */
     border-radius: 5px;
     overflow: hidden;
   }
   th, td {
-    border: 1px solid #97634e; /* medium brown */
+    border: 1px solid #3d1f1f; /* dark reddish-brown, replacing medium brown */
     padding: 8px;
     text-align: left;
   }
   th {
-    background-color: #c78d75; /* intermediate brown */
-    color: #ffffff;
+    background-color: #0b0b29; /* very dark blue, replacing intermediate brown */
+    color: #ffffff; /* maintaining white for readability */
   }
   td {
-    background-color: #f0ece3;
+    background-color: #f0ece3; /* maintaining for contrast and readability */
   }
   .no-result {
     background-color: #f0ece3;
@@ -50,6 +51,7 @@
     border-radius: 4px;
   }
 </style>
+
 </head>
 <body>
 
@@ -68,4 +70,16 @@
     </tr>
   </thead>
   <tbody id="searchResults">
-    <!-- Search results
+    <!-- Search results will be injected here -->
+    <tr>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+<script>
+</script>
+
+</body>
+
+{% endblock content %}

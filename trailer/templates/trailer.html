@@ -1,55 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+{% include 'navbar.html' %}
+
 <title>Trailer Listings</title>
 <style>
   body {
-    background-color: #3b3c37; /* dark slate gray */
-    color: #d8bba9; /* light peach tone */
+    background-color: #1f1f3d; /* dark bluish-gray, replacing dark slate gray */
+    color: #f0ece3; /* adjusted to a lighter tone for better readability */
     font-family: Arial, sans-serif;
   }
   .search-container {
-    background-color: #d7ab8e; /* light beige */
+    background-color: #292947; /* darker blue-gray, replacing light beige */
     padding: 10px;
   }
   input[type="text"] {
     padding: 10px;
     width: 90%;
     margin-bottom: 20px;
+    border: 1px solid #3d1f1f; /* dark reddish-brown, adjusted for contrast */
   }
   table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #d8bba9; /* light peach tone */
+    background-color: #f0ece3; /* lighter shade for contrast */
   }
   th, td {
-    border: 1px solid #664d48; /* dark brown */
+    border: 1px solid #33335b; /* medium blue-gray, replacing dark brown */
     padding: 8px;
     text-align: left;
   }
   th {
-    background-color: #97634e; /* medium brown */
-    color: #d8bba9; /* light peach tone */
+    background-color: #0b0b29; /* very dark blue, replacing medium brown */
+    color: #f0ece3; /* for readability */
   }
   tr:nth-child(even) {
-    background-color: #c78d75; /* intermediate brown */
+    background-color: #3d1f1f; /* dark reddish-brown, replacing intermediate brown */
   }
   tr:nth-child(odd) {
-    background-color: #d7ab8e; /* light beige */
+    background-color: #292947; /* darker blue-gray, replacing light beige */
   }
   .table-container {
     padding: 20px;
-    background-color: #3b3c37; /* dark slate gray */
+    background-color: #1f1f3d; /* dark bluish-gray, consistent with body background */
   }
   .table-header {
-    background-color: #664d48; /* dark brown */
-    color: #d8bba9; /* light peach tone */
+    background-color: #33335b; /* medium blue-gray, replacing dark brown */
+    color: #f0ece3; /* light tone for header text */
     padding: 10px;
     text-align: center;
   }
 </style>
+
 </head>
 <body>
 
@@ -111,8 +114,8 @@
 </div>
 
 <script>
-  // JavaScript for search functionality can be added here
 </script>
 
 </body>
-</html>
+
+{% endblock content %}

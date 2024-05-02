@@ -1,18 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+{% include 'navbar.html' %}
+
 <title>Search Results for Shows</title>
+
 <style>
   body {
-    background-color: #d8bba9; /* light peach tone */
+    background-color: #1f1f3d; /* dark bluish-gray, was light peach tone */
     font-family: Arial, sans-serif;
-    color: #3b3c37; /* very dark brown */
+    color: #f0ece3; /* adjusted for better readability against darker background */
     padding: 20px;
   }
   .search-box {
-    background-color: #d7ab8e; /* light beige */
+    background-color: #292947; /* darker bluish-gray, was light beige */
     padding: 10px;
     margin-bottom: 20px;
     border-radius: 5px;
@@ -21,29 +23,29 @@
     width: 100%;
     padding: 8px;
     margin-top: 8px;
-    border: 1px solid #664d48; /* dark brown */
+    border: 1px solid #3d1f1f; /* dark reddish-brown, was dark brown */
     border-radius: 4px;
   }
   table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #ffffff;
+    background-color: #f0ece3; /* light color for contrast, was white */
     border-radius: 5px;
   }
   th, td {
-    border: 1px solid #97634e; /* medium brown */
+    border: 1px solid #33335b; /* medium bluish-gray, was medium brown */
     padding: 8px;
     text-align: left;
   }
   th {
-    background-color: #c78d75; /* intermediate brown */
+    background-color: #0b0b29; /* very dark blue, was intermediate brown */
     color: #ffffff;
   }
   td {
-    background-color: #f0ece3;
+    background-color: #f0ece3; /* maintaining for contrast */
   }
   .button-link {
-    background-color: #664d48; /* dark brown */
+    background-color: #3d1f1f; /* dark reddish-brown, was dark brown */
     color: #ffffff;
     padding: 5px 10px;
     text-decoration: none;
@@ -51,6 +53,7 @@
     display: inline-block;
   }
 </style>
+
 </head>
 <body>
 
@@ -86,4 +89,5 @@
 </script>
 
 </body>
-</html>
+
+{% endblock content %}

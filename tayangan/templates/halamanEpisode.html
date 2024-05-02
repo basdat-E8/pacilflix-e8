@@ -1,34 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+{% include 'navbar.html' %}
+
 <title>Episode Page</title>
+
 <style>
   body {
-    background-color: #d8bba9; /* base color */
-    color: #3b3c37; /* dark slate gray */
+    background-color: #1f1f3d; /* dark bluish-gray, replacing the light peach tone */
     font-family: Arial, sans-serif;
+    color: #f0ece3; /* light color for readability, replacing the very dark brown */
     padding: 20px;
   }
   .section {
-    background-color: #d7ab8e; /* light beige */
+    background-color: #292947; /* darker blue-gray, replacing light beige */
     padding: 10px;
     margin-bottom: 20px;
     border-radius: 5px;
   }
   .button {
-    background-color: #97634e; /* medium brown */
-    color: #ffffff;
+    background-color: #3d1f1f; /* dark reddish-brown, replacing medium brown */
+    color: #ffffff; /* white for contrast */
     padding: 5px 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
+    margin: 5px;
   }
   .info {
-    background-color: #c78d75; /* intermediate brown */
+    background-color: #0b0b29; /* very dark blue, replacing intermediate brown */
     padding: 10px;
     border-radius: 5px;
   }
@@ -38,11 +41,12 @@
   }
   li {
     margin-bottom: 5px;
-    background-color: #f0ece3; /* light background for items */
+    background-color: #f0ece3; /* kept as is for light background contrast */
     padding: 5px;
     border-radius: 4px;
   }
 </style>
+
 </head>
 <body>
 
@@ -68,8 +72,8 @@
 </div>
 
 <script>
-    // Function
 </script>
 
 </body>
-</html>
+
+{% endblock content %}
