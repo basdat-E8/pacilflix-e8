@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+{% include 'navbar.html' %}
+
+<title>Film Page</title>
+
+<style>
+  body {
+    background-color: #1f1f3d; /* dark bluish-gray */
+    font-family: Arial, sans-serif;
+    color: #f0ece3; /* light color for readability */
+    padding: 20px;
+  }
+  .section {
+    background-color: #292947; /* darker blue-gray */
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+  }
+  .button {
+    background-color: #3d1f1f; /* dark reddish-brown */
+    color: #ffffff; /* white for contrast */
+    padding: 5px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin: 5px;
+  }
+  .info {
+    background-color: #0b0b29; /* very dark blue */
+    padding: 10px;
+    border-radius: 5px;
+  }
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  li {
+    margin-bottom: 5px;
+    background-color: #f0ece3; /* light grayish tone for item background */
+    padding: 5px;
+    border-radius: 4px;
+  }
+</style>
+
+</head>
+<body>
+
+<div class="section">
+  <h1>Title: <span id="filmTitle"><data></span></h1>
+  <button class="button" onclick="">Watch Film</button>
+  <button class="button" onclick="">Favorite Film</button>
+</div>
+
+<div class="info">
+  <p>Total Views: <span id="totalViews"><data></span></p>
+  <p>Average Rating: <span id="rating"><data></span></p>
+  <p>Synopsis: <span id="synopsis"><data></span></p>
+  <p>Film Duration: <span id="duration"><data></span></p>
+  <p>Release Date: <span id="releaseDate"><data></span></p>
+  <p>Film URL: <a href="#" target="_blank">Watch Here</a></p>
+  <p>Genre:</p>
+  <ul id="genres">
+    <li><nama_genre_1></li>
+  </ul>
+  <p>Country of Origin: <span id="country"><data></span></p>
+  <p>Cast:</p>
+  <ul id="cast">
+    <li><nama_pemain_1></li>
+  </ul>
+  <p>Screenwriters:</p>
+  <ul id="screenwriters">
+    <li><nama_penulis_skenario_1></li>
+  </ul>
+  <p>Director: <span id="director"><data></span></p>
+</div>
+
+<!-- Reviews section can be similarly structured -->
+<div class="section">
+  <h2>Reviews:</h2>
+  <!-- Reviews would be listed here -->
+</div>
+
+<script>
+</script>
+
+</body>
+
+{% endblock content %}

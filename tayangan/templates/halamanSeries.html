@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+{% include 'navbar.html' %}
+
+<title>Series Page</title>
+
+<style>
+  body {
+    background-color: #1f1f3d; /* dark bluish-gray, replacing the light peach tone */
+    color: #f0ece3; /* light color for readability, replacing the dark slate gray */
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  h1, h2 {
+    color: #f0ece3; /* ensuring headers are readable against the dark background */
+  }
+  ul, p {
+    margin: 10px 0;
+    padding: 0;
+  }
+  li {
+    margin-bottom: 5px;
+  }
+  .section {
+    background-color: #292947; /* darker bluish-gray, replacing light beige */
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+  }
+  .button {
+    background-color: #3d1f1f; /* dark reddish-brown, replacing medium brown */
+    color: #ffffff;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .info {
+    background-color: #0b0b29; /* very dark blue, replacing intermediate brown */
+    padding: 10px;
+    border-radius: 5px;
+  }
+  .info p, .info ul {
+    margin: 5px 0;
+  }
+</style>
+
+</head>
+<body>
+
+<div class="section">
+  <h1>Judul: <span id="seriesTitle"><data></span></h1>
+  <h2>Episodes:</h2>
+  <ul id="episodeLinks">
+    <li><a href="#">Episode 1</a></li>
+    <li><a href="#">Episode N</a></li>
+  </ul>
+  <a href="#" class="button">Download Show</a>
+  <a href="#" class="button">Favorite Show</a>
+</div>
+
+<div class="info">
+  <p>Total View: <span id="totalViews"><data></span></p>
+  <p>Rating: <span id="rating"><data></span></p>
+  <p>Sinopsis: <span id="synopsis"><data></span></p>
+  <p>Genre:</p>
+  <ul id="genres">
+    <li><data_genre_1></li>
+    <li><data_genre_n></li>
+  </ul>
+  <p>Country: <span id="country"><data></span></p>
+  <p>Cast:</p>
+  <ul id="cast">
+    <li><nama_pemain_1></li>
+    <li><nama_pemain_n></li>
+  </ul>
+  <p>Screenwriters:</p>
+  <ul id="screenwriters">
+    <li><nama_penulis_skenario_1></li>
+    <li><nama_penulis_skenario_3></li>
+  </ul>
+  <p>Director: <span id="director"><data></span></p>
+</div>
+
+<!-- Include the reviews section here, which you may want to structure similarly -->
+<div class="section">
+  <h2>Reviews:</h2>
+  <!-- Reviews would be listed here -->
+</div>
+
+</body>
+
+{% endblock content %}

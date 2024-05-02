@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+{% include 'navbar.html' %}
+
+<title>Search Results for Trailers</title>
+<style>
+  body {
+    background-color: #1f1f3d; /* dark bluish-gray, replacing light peach tone */
+    font-family: Arial, sans-serif;
+    color: #f0ece3; /* adjusted to a lighter tone for readability, replacing very dark brown */
+    padding: 20px;
+  }
+  .search-box {
+    background-color: #292947; /* darker blue-gray, replacing light beige */
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+  }
+  input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 8px;
+    border: 1px solid #33335b; /* medium blue-gray, replacing dark brown */
+    border-radius: 4px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #f0ece3; /* light grayish tone for contrast, replacing white */
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  th, td {
+    border: 1px solid #3d1f1f; /* dark reddish-brown, replacing medium brown */
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background-color: #0b0b29; /* very dark blue, replacing intermediate brown */
+    color: #ffffff; /* maintaining white for readability */
+  }
+  td {
+    background-color: #f0ece3; /* maintaining for contrast and readability */
+  }
+  .no-result {
+    background-color: #f0ece3;
+    text-align: center;
+    padding: 10px;
+    border-radius: 4px;
+  }
+</style>
+
+</head>
+<body>
+
+<div class="search-box" style="padding-top: 65px;">
+  <label for="searchInput">HASIL PENCARIAN</label>
+  <input type="text" id="searchInput" placeholder="Input Pencarian Tayangan berdasarkan judul">
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Judul</th>
+      <th>Sinopsis Trailer</th>
+      <th>URL Trailer</th>
+      <th>Tanggal Rilis Trailer</th>
+    </tr>
+  </thead>
+  <tbody id="searchResults">
+    <!-- Search results will be injected here -->
+    <tr>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+<script>
+</script>
+
+</body>
+
+{% endblock content %}

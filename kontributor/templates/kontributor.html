@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+{% include 'navbar.html' %}
+<style>
+    body {
+        background-color:  rgb(31, 31, 61); /* Warna ungu */
+        color: white;
+        font-family: Arial, sans-serif;
+    }
+
+    /* Style untuk judul */
+    .judul {
+        text-align: center;
+        color: white;
+    }
+
+    /* Style untuk isi tabel */
+    .table {
+        background-color: transparent;
+        color: white;
+        text-align: center; /* Rata tengah tulisan pada tabel */
+        border-color: white;
+    }
+
+    .table th {
+        background-color: rgba(109, 109, 169, 0.5);
+        border-color: white;
+        color: white;
+    }
+
+    .btn-primary,
+    .btn-primary:hover {
+        background-color: #17a2b8;
+        border-color: #17a2b8;
+    }
+
+    .btn-danger,
+    .btn-danger:hover {
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+</style>
+
+    <div class="container mt-5" style="padding-top: 40px;">
+
+        <h1 class="mb-4">Daftar Kontributor</h1>
+
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search by Tipe" aria-label="Search by Tipe" aria-describedby="button-search">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="button" id="button-search">Search</button>
+            </div>
+        </div>
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Tipe</th>
+                    <th scope="col">Jenis Kelamin</th>
+                    <th scope="col">Kewarganegaraan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>John Doe</td>
+                    <td>A</td>
+                    <td>Male</td>
+                    <td>USA</td>
+                </tr>
+                <tr>
+                    <td>Jane Smith</td>
+                    <td>B</td>
+                    <td>Female</td>
+                    <td>UK</td>
+                </tr>
+                <tr>
+                    <td>Michael Johnson</td>
+                    <td>A</td>
+                    <td>Male</td>
+                    <td>Canada</td>
+                </tr>
+                <tr>
+                    <td>Sarah Lee</td>
+                    <td>C</td>
+                    <td>Female</td>
+                    <td>Australia</td>
+                </tr>
+                <tr>
+                    <td>David Brown</td>
+                    <td>B</td>
+                    <td>Male</td>
+                    <td>Germany</td>
+                </tr>
+            </tbody>
+            <!-- <tbody>
+                {% for unduhan in unduhan_list %}
+                <tr>
+                    <td>{{ unduhan.nama }}</td>
+                    <td>{{ unduhan.tipe }}</td>
+                    <td>{{ unduhan.jenis_kelamin }}</td>
+                    <td>{{ unduhan.kewarganegaraan }}</td>
+                </tr>
+                {% endfor %}
+            </tbody> -->
+        </table>
+
+    </div>
+
+    <script>
+        showNavbar(true);
+    </script>
+
+{% endblock content %}
