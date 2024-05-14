@@ -48,24 +48,29 @@
   }
 </style>
 
-<div class="review-section">
-  <h2>Bagian Ulasan</h2>
-  <form class="review-form">
-    <input type="text" id="reviewDescription" name="reviewDescription" placeholder="Input untuk deskripsi ulasan">
-    <select id="rating" name="rating">
-      <option value="5">★★★★★</option>
-      <option value="4">★★★★☆</option>
-      <option value="3">★★★☆☆</option>
-      <option value="2">★★☆☆☆</option>
-      <option value="1">★☆☆☆☆</option>
-    </select>
-    <button type="submit" class="submit-button">Submit</button>
-  </form>
-  
-  <h3>Daftar Ulasan:</h3>
-  <ul class="review-list">
-    <!-- More reviews will go here -->
-  </ul>
+
+</head>
+<body>
+<div style="padding-top: 60px;">
+  <div class="review-section">
+    <h2>Bagian Ulasan</h2>
+    <form class="review-form">
+      <input type="text" id="reviewDescription" name="reviewDescription" placeholder="Input untuk deskripsi ulasan">
+      <select id="rating" name="rating">
+        <option value="5">★★★★★</option>
+        <option value="4">★★★★☆</option>
+        <option value="3">★★★☆☆</option>
+        <option value="2">★★☆☆☆</option>
+        <option value="1">★☆☆☆☆</option>
+      </select>
+      <button type="submit" class="submit-button">Submit</button>
+    </form>
+    
+    <h3>Daftar Ulasan:</h3>
+    <ul class="review-list">
+      <!-- More reviews will go here -->
+    </ul>
+  </div>
 </div>
 
 {% endblock content %}
