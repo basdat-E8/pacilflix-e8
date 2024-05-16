@@ -231,7 +231,8 @@ def show_halaman_episode(request, id_series, sub_judul):
                 e.durasi AS duration,
                 e.url_video AS episode_url,
                 e.release_date AS release_date,
-                t.judul AS series_title
+                t.judul AS series_title,
+                e.id_series AS series_id
             FROM
                 pacilflix.episode e
                 JOIN pacilflix.series s ON e.id_series = s.id_tayangan
@@ -248,6 +249,7 @@ def show_halaman_episode(request, id_series, sub_judul):
                 'episode_url': episode[3],
                 'release_date': episode[4],
                 'series_title': episode[5],
+                'series_id': episode[6] 
             }
 
         # Fetch other episodes

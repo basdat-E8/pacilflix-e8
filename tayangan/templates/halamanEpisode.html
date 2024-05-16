@@ -57,14 +57,14 @@
   <h2>Other Episodes:</h2>
   <ul id="otherEpisodes">
     {% for episode in other_episodes %}
-      <li><a href="{% url 'tayangan:show_halaman_episode' episode_data.id_series episode %}">{{ episode }}</a></li>
+      <li><a href="{% url 'tayangan:show_halaman_episode' id_series=episode_data.series_id sub_judul=episode %}">{{ episode }}</a></li>
     {% endfor %}
   </ul>
 </div>
 
 <div class="info">
   <p>Synopsis: <span id="episodeSynopsis">{{ episode_data.synopsis }}</span></p>
-  <p>Duration: <span id="episodeDuration">{{ episode_data.duration }}</span></p>
+  <p>Duration: <span id="episodeDuration">{{ episode_data.duration }} Minutes</span></p>
   <p>Episode URL: <a href="{{ episode_data.episode_url }}" target="_blank">Watch Here</a></p>
   <p>Release Date: <span id="releaseDate">{{ episode_data.release_date }}</span></p>
 </div>

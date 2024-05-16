@@ -14,7 +14,7 @@
     padding: 20px;
   }
   h1, h2 {
-    color: #f0ece3; /* ensuring headers are readable against the dark background */
+    color: #f0ece3; 
   }
   ul, p {
     margin: 10px 0;
@@ -55,7 +55,7 @@
   <h2>Episodes:</h2>
   <ul id="episodeLinks">
     {% for episode in episodes %}
-      <li><a href="{% url 'tayangan:show_halaman_episode' episode.id_series episode.sub_title %}">{{ episode.sub_title }}</a> - {{ episode.release_date }}</li>
+      <li><a href="{% url 'tayangan:show_halaman_episode' id_series=episode.id_series sub_judul=episode.sub_title %}">{{ episode.sub_title }}</a> - {{ episode.release_date }}</li>
     {% endfor %}
   </ul>
   <a href="#" class="button">Download Show</a>
@@ -63,8 +63,6 @@
 </div>
 
 <div class="info">
-  <p>Total View: <span id="totalViews">{{ series_data.total_views }}</span></p>
-  <p>Rating: <span id="rating">{{ series_data.rating }}</span></p>
   <p>Sinopsis: <span id="synopsis">{{ series_data.synopsis }}</span></p>
   <p>Genre:</p>
   <ul id="genres">
