@@ -8,8 +8,8 @@
 
 <style>
   body {
-    background-color: #1f1f3d; /* dark bluish-gray, replacing the light peach tone */
-    color: #f0ece3; /* light color for readability, replacing the dark slate gray */
+    background-color: #1f1f3d; /* dark bluish-gray */
+    color: #f0ece3;
     font-family: Arial, sans-serif;
     padding: 20px;
   }
@@ -24,13 +24,13 @@
     margin-bottom: 5px;
   }
   .section {
-    background-color: #292947; /* darker bluish-gray, replacing light beige */
+    background-color: #292947; /* darker bluish-gray */
     padding: 10px;
     margin-bottom: 20px;
     border-radius: 5px;
   }
   .button {
-    background-color: #3d1f1f; /* dark reddish-brown, replacing medium brown */
+    background-color: #3d1f1f; /* dark reddish-brown */
     color: #ffffff;
     padding: 5px 15px;
     border: none;
@@ -40,7 +40,7 @@
     display: inline-block;
   }
   .info {
-    background-color: #0b0b29; /* very dark blue, replacing intermediate brown */
+    background-color: #0b0b29; /* very dark blue */
     padding: 10px;
     border-radius: 5px;
   }
@@ -49,38 +49,43 @@
   }
 </style>
 
+<h1>{{ series_data.title }}</h1>
 <div class="section">
-  <h1>Judul: <span id="seriesTitle"><data></span></h1>
+  <h1>Judul: <span id="seriesTitle">{{ series_data.title }}</span></h1>
   <h2>Episodes:</h2>
   <ul id="episodeLinks">
-    <li><a href="#">Episode 1</a></li>
-    <li><a href="#">Episode N</a></li>
+    {% for episode in episodes %}
+      <li><a href="{% url 'tayangan:show_halaman_episode' episode.id_series episode.sub_title %}">{{ episode.sub_title }}</a> - {{ episode.release_date }}</li>
+    {% endfor %}
   </ul>
   <a href="#" class="button">Download Show</a>
   <a href="#" class="button">Favorite Show</a>
 </div>
 
 <div class="info">
-  <p>Total View: <span id="totalViews"><data></span></p>
-  <p>Rating: <span id="rating"><data></span></p>
-  <p>Sinopsis: <span id="synopsis"><data></span></p>
+  <p>Total View: <span id="totalViews">{{ series_data.total_views }}</span></p>
+  <p>Rating: <span id="rating">{{ series_data.rating }}</span></p>
+  <p>Sinopsis: <span id="synopsis">{{ series_data.synopsis }}</span></p>
   <p>Genre:</p>
   <ul id="genres">
-    <li><data_genre_1></li>
-    <li><data_genre_n></li>
+    {% for genre in genres %}
+      <li>{{ genre }}</li>
+    {% endfor %}
   </ul>
-  <p>Country: <span id="country"><data></span></p>
+  <p>Country: <span id="country">{{ series_data.country }}</span></p>
   <p>Cast:</p>
   <ul id="cast">
-    <li><nama_pemain_1></li>
-    <li><nama_pemain_n></li>
+    {% for actor in cast %}
+      <li>{{ actor }}</li>
+    {% endfor %}
   </ul>
   <p>Screenwriters:</p>
   <ul id="screenwriters">
-    <li><nama_penulis_skenario_1></li>
-    <li><nama_penulis_skenario_3></li>
+    {% for writer in screenwriters %}
+      <li>{{ writer }}</li>
+    {% endfor %}
   </ul>
-  <p>Director: <span id="director"><data></span></p>
+  <p>Director: <span id="director">{{ series_data.director }}</span></p>
 </div>
 
 <!-- Include the reviews section here, which you may want to structure similarly -->

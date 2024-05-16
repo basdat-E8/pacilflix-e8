@@ -6,15 +6,15 @@
 
 <title>Search Results for Shows</title>
 
-<style>
+<style> 
   body {
-    background-color: #1f1f3d; /* dark bluish-gray, was light peach tone */
+    background-color: #1f1f3d; /* dark bluish-gray */
     font-family: Arial, sans-serif;
-    color: #f0ece3; /* adjusted for better readability against darker background */
+    color: #f0ece3; 
     padding: 20px;
   }
   .search-box {
-    background-color: #292947; /* darker bluish-gray, was light beige */
+    background-color: #292947; /* darker bluish-gray */
     padding: 10px;
     margin-bottom: 20px;
     border-radius: 5px;
@@ -23,29 +23,29 @@
     width: 100%;
     padding: 8px;
     margin-top: 8px;
-    border: 1px solid #3d1f1f; /* dark reddish-brown, was dark brown */
+    border: 1px solid #3d1f1f; /* dark reddish-brown */
     border-radius: 4px;
   }
   table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #f0ece3; /* light color for contrast, was white */
+    background-color: #f0ece3; /* light color for contrast */
     border-radius: 5px;
   }
   th, td {
-    border: 1px solid #33335b; /* medium bluish-gray, was medium brown */
+    border: 1px solid #33335b; /* medium bluish-gray */
     padding: 8px;
     text-align: left;
   }
   th {
-    background-color: #0b0b29; /* very dark blue, was intermediate brown */
+    background-color: #0b0b29; /* very dark blue */
     color: #ffffff;
   }
   td {
     background-color: #f0ece3; /* maintaining for contrast */
   }
   .button-link {
-    background-color: #3d1f1f; /* dark reddish-brown, was dark brown */
+    background-color: #3d1f1f; /* dark reddish-brown */
     color: #ffffff;
     padding: 5px 10px;
     text-decoration: none;
@@ -56,33 +56,63 @@
 
 <div class="search-box">
   <label for="searchInput">HASIL PENCARIAN</label>
-  <input type="text" id="searchInput" placeholder="Input Pencarian Tayangan berdasarkan judul">
+  <input type="text" id="searchInput" value="{{ query }}" placeholder="Input Pencarian Tayangan berdasarkan judul" readonly>
 </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Judul</th>
-      <th>Sinopsis Trailer</th>
-      <th>URL Trailer</th>
-      <th>Tanggal Rilis Trailer</th>
-      <th>Tayangan</th>
-    </tr>
-  </thead>
-  <tbody id="searchResults">
-    <!-- Rows with show data will go here -->
-    <tr>
-      <td><data></td>
-      <td><data></td>
-      <td><data></td>
-      <td><data></td>
-      <td><a href="#" class="button-link">Tombol ke Halaman Tayangan</a></td>
-    </tr>
-  </tbody>
-</table>
+{% if film_results %}
+  <h2>Films</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Judul</th>
+        <th>Sinopsis Trailer</th>
+        <th>URL Trailer</th>
+        <th>Tanggal Rilis Trailer</th>
+        <th>Tayangan</th>
+      </tr>
+    </thead>
+    <tbody id="filmResults">
+      {% for film in film_results %}
+        <tr>
+          <td>{{ film.title }}</td>
+          <td>{{ film.synopsis }}</td>
+          <td><a href="{{ film.trailer_url }}" target="_blank">Watch Trailer</a></td>
+          <td>{{ film.release_date }}</td>
+          <td><a href="{% url 'tayangan:show_halaman_film' film.id %}" class="button-link">View Details</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p>No films found.</p>
+{% endif %}
 
-<script>
-  // You would add JavaScript here to handle search functionality.
-</script>
+{% if series_results %}
+  <h2>Series</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Judul</th>
+        <th>Sinopsis Trailer</th>
+        <th>URL Trailer</th>
+        <th>Tanggal Rilis Trailer</th>
+        <th>Tayangan</th>
+      </tr>
+    </thead>
+    <tbody id="seriesResults">
+      {% for series in series_results %}
+        <tr>
+          <td>{{ series.title }}</td>
+          <td>{{ series.synopsis }}</td>
+          <td><a href="{{ series.trailer_url }}" target="_blank">Watch Trailer</a></td>
+          <td>{{ series.release_date }}</td>
+          <td><a href="{% url 'tayangan:show_halaman_series' series.id %}" class="button-link">View Details</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p>No series found.</p>
+{% endif %}
 
 {% endblock content %}
