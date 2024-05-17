@@ -30,9 +30,6 @@ COPY . /docker-app/
 # Expose port 8000 to the outside world
 EXPOSE 8000
 
-# Collect static for better visualization
-RUN python manage.py collectstatic
-
 # Run migrate DB
 RUN python manage.py migrate
 
