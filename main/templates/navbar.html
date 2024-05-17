@@ -42,6 +42,11 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">PacilFlix</a>
+        {% if is_logged_in %}
+            <span class="navbar-text">
+                Hello, {{ username }}
+            </span>
+        {% endif %}
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -50,6 +55,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Trailer Tayangan</a>
                 </li>
+            {% if is_logged_in %}
                 <li class="nav-item" id="daftar-tayangan">
                     <a class="nav-link" href="#">Daftar Tayangan</a>
                 </li>
@@ -66,8 +72,9 @@
                     <a class="nav-link" href="#">Kelola Langganan</a>
                 </li>
                 <li class="nav-item" id="logout">
-                    <a class="nav-link" href="#">Logout</a>
+                    <a class="nav-link" href="/authentication/logout">Logout</a>
                 </li>
+            {% endif %}
             </ul>
         </div>
     </div>
@@ -75,33 +82,33 @@
 
 <script>
     // Fungsi untuk menampilkan navbar sesuai dengan status login
-    function showNavbar(isLoggedIn) {
-        const daftarTayangan = document.getElementById('daftar-tayangan');
-        const daftarKontributor = document.getElementById('daftar-kontributor');
-        const kelolaDaftarFavorit = document.getElementById('kelola-daftar-favorit');
-        const kelolaDaftarUnduhan = document.getElementById('kelola-daftar-unduhan');
-        const kelolaLangganan = document.getElementById('kelola-langganan');
-        const logout = document.getElementById('logout');
+    // function showNavbar(isLoggedIn) {
+    //     const daftarTayangan = document.getElementById('daftar-tayangan');
+    //     const daftarKontributor = document.getElementById('daftar-kontributor');
+    //     const kelolaDaftarFavorit = document.getElementById('kelola-daftar-favorit');
+    //     const kelolaDaftarUnduhan = document.getElementById('kelola-daftar-unduhan');
+    //     const kelolaLangganan = document.getElementById('kelola-langganan');
+    //     const logout = document.getElementById('logout');
 
-        if (isLoggedIn) {
-            daftarTayangan.style.display = 'block';
-            daftarKontributor.style.display = 'block';
-            kelolaDaftarFavorit.style.display = 'block';
-            kelolaDaftarUnduhan.style.display = 'block';
-            kelolaLangganan.style.display = 'block';
-            logout.style.display = 'block';
-        } else {
-            daftarTayangan.style.display = 'none';
-            daftarKontributor.style.display = 'none';
-            kelolaDaftarFavorit.style.display = 'none';
-            kelolaDaftarUnduhan.style.display = 'none';
-            kelolaLangganan.style.display = 'none';
-            logout.style.display = 'none';
-        }
-    }
+    //     if (isLoggedIn) {
+    //         daftarTayangan.style.display = 'block';
+    //         daftarKontributor.style.display = 'block';
+    //         kelolaDaftarFavorit.style.display = 'block';
+    //         kelolaDaftarUnduhan.style.display = 'block';
+    //         kelolaLangganan.style.display = 'block';
+    //         logout.style.display = 'block';
+    //     } else {
+    //         daftarTayangan.style.display = 'none';
+    //         daftarKontributor.style.display = 'none';
+    //         kelolaDaftarFavorit.style.display = 'none';
+    //         kelolaDaftarUnduhan.style.display = 'none';
+    //         kelolaLangganan.style.display = 'none';
+    //         logout.style.display = 'none';
+    //     }
+    // }
 
     // Contoh penggunaan: jika pengguna belum login
-    showNavbar(false); // Ubah menjadi true jika pengguna sudah login
+    // showNavbar(true); // Ubah menjadi true jika pengguna sudah login
 </script>
 
 <!-- Bootstrap JS dan jQuery -->

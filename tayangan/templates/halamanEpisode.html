@@ -8,20 +8,20 @@
 
 <style>
   body {
-    background-color: #1f1f3d; /* dark bluish-gray, replacing the light peach tone */
+    background-color: #1f1f3d; /* dark bluish-gray */
     font-family: Arial, sans-serif;
-    color: #f0ece3; /* light color for readability, replacing the very dark brown */
+    color: #f0ece3;
     padding: 20px;
   }
   .section {
-    background-color: #292947; /* darker blue-gray, replacing light beige */
+    background-color: #292947; /* darker blue-gray */
     padding: 10px;
     margin-bottom: 20px;
     border-radius: 5px;
   }
   .button {
-    background-color: #3d1f1f; /* dark reddish-brown, replacing medium brown */
-    color: #ffffff; /* white for contrast */
+    background-color: #3d1f1f; /* dark reddish-brown */
+    color: #ffffff;
     padding: 5px 15px;
     border: none;
     border-radius: 5px;
@@ -31,7 +31,7 @@
     margin: 5px;
   }
   .info {
-    background-color: #0b0b29; /* very dark blue, replacing intermediate brown */
+    background-color: #0b0b29; /* very dark blue */
     padding: 10px;
     border-radius: 5px;
   }
@@ -41,39 +41,32 @@
   }
   li {
     margin-bottom: 5px;
-    background-color: #f0ece3; /* kept as is for light background contrast */
+    background-color: #f0ece3;
     padding: 5px;
     border-radius: 4px;
   }
 </style>
 
-</head>
-<body>
-
 <div class="section">
-  <h1>Title: <span id="episodeTitle"><data></span></h1>
-  <h2>Subtitle: <span id="episodeSubtitle"><data></span></h2>
-  <button class="button" onclick="">Watch Episode</button>
+  <h1>Title: <span id="episodeTitle">{{ episode_data.series_title }}</span></h1>
+  <h2>Subtitle: <span id="episodeSubtitle">{{ episode_data.subtitle }}</span></h2>
+  <button class="button" onclick="window.location.href='{{ episode_data.episode_url }}'">Watch Episode</button>
 </div>
 
 <div class="section">
   <h2>Other Episodes:</h2>
   <ul id="otherEpisodes">
-    <li><a href="#">Episode 1</a></li>
-    <li><a href="#">Episode N</a></li>
+    {% for episode in other_episodes %}
+      <li><a href="{% url 'tayangan:show_halaman_episode' id_series=episode_data.series_id sub_judul=episode %}">{{ episode }}</a></li>
+    {% endfor %}
   </ul>
 </div>
 
 <div class="info">
-  <p>Synopsis: <span id="episodeSynopsis"><data></span></p>
-  <p>Duration: <span id="episodeDuration"><data></span></p>
-  <p>Episode URL: <a href="" target="_blank">Watch Here</a></p>
-  <p>Release Date: <span id="releaseDate"><data></span></p>
+  <p>Synopsis: <span id="episodeSynopsis">{{ episode_data.synopsis }}</span></p>
+  <p>Duration: <span id="episodeDuration">{{ episode_data.duration }} Minutes</span></p>
+  <p>Episode URL: <a href="{{ episode_data.episode_url }}" target="_blank">Watch Here</a></p>
+  <p>Release Date: <span id="releaseDate">{{ episode_data.release_date }}</span></p>
 </div>
-
-<script>
-</script>
-
-</body>
 
 {% endblock content %}

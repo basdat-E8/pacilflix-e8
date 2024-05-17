@@ -2,7 +2,6 @@
 
 {% block content %}
 
-{% include 'navbar.html' %}
 <style>
   .cover {
     background-size: cover;
@@ -27,9 +26,17 @@
     <div class="cover-text">
       <h1>Welcome to PacilFlix</h1>
       <p>PacilFlix-E8</p>
-      <div class="d-grid gap-2 col-6 mx-auto">
-        <button class="btn btn-secondary" type="button">Login</button>
-        <button class="btn btn-outline-secondary" type="button">Register</button>
+      <div class="d-grid gap-2">
+        <a href="authentication/login" style="text-decoration:none">
+          <div class="d-grid col-6 mx-auto">
+            <button class="btn btn-secondary" type="button">Login</button>
+          </div>
+        </a>
+        <a href="authentication/register" style="text-decoration:none">
+          <div class="d-grid col-6 mx-auto">
+            <button class="btn btn-outline-secondary" type="button">Register</button>
+          </div>
+        </a>
       </div>
     </div>
   </div>

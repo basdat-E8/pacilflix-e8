@@ -5,77 +5,82 @@
 {% include 'navbar.html' %}
 
 <title>Trailer Listings</title>
+
 <style>
   body {
-    background-color: #1f1f3d; /* dark bluish-gray, replacing dark slate gray */
-    color: #f0ece3; /* adjusted to a lighter tone for better readability */
+    background-color: #1f1f3d; /* dark bluish-gray */
+    color: #f0ece3; 
     font-family: Arial, sans-serif;
   }
   .search-container {
-    background-color: #292947; /* darker blue-gray, replacing light beige */
+    background-color: #292947; /* darker blue-gray */
     padding: 10px;
   }
   input[type="text"] {
     padding: 10px;
     width: 90%;
     margin-bottom: 20px;
-    border: 1px solid #3d1f1f; /* dark reddish-brown, adjusted for contrast */
+    border: 1px solid #3d1f1f; /* dark reddish-brown */
   }
   table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #f0ece3; /* lighter shade for contrast */
+    background-color: #f0ece3;
   }
   th, td {
-    border: 1px solid #33335b; /* medium blue-gray, replacing dark brown */
+    border: 1px solid #33335b; /* medium blue-gray */
     padding: 8px;
     text-align: left;
   }
   th {
-    background-color: #0b0b29; /* very dark blue, replacing medium brown */
-    color: #f0ece3; /* for readability */
+    background-color: #0b0b29; /* very dark blue */
+    color: #f0ece3; 
   }
   tr:nth-child(even) {
-    background-color: #3d1f1f; /* dark reddish-brown, replacing intermediate brown */
+    background-color: #3d1f1f; /* dark reddish-brown */
   }
   tr:nth-child(odd) {
-    background-color: #292947; /* darker blue-gray, replacing light beige */
+    background-color: #292947; /* darker blue-gray */
   }
   .table-container {
     padding: 20px;
-    background-color: #1f1f3d; /* dark bluish-gray, consistent with body background */
+    background-color: #1f1f3d; /* dark bluish-gray */
   }
   .table-header {
-    background-color: #33335b; /* medium blue-gray, replacing dark brown */
-    color: #f0ece3; /* light tone for header text */
+    background-color: #33335b; /* medium blue-gray */
+    color: #f0ece3;
     padding: 10px;
     text-align: center;
   }
 </style>
 
-</head>
-<body>
-
+<h1>Trailer Listings</h1>
 <div style="padding-top: 65px;">
-  <div class="search-container">
-    <input type="text" id="searchBox" placeholder="Search for trailers...">
-  </div>
+  <form class="search-container" action="{% url 'trailer:show_trailer_search' %}" method="get">
+    <input type="text" id="searchBox" name="q" placeholder="Search for trailers...">
+    <input type="submit" value="Search">
+  </form>
   
   <div class="table-container">
-    <div class="table-header">Top Trailers</div>
+    <div class="table-header">Trailers</div>
     <table>
       <thead>
         <tr>
-          <th>Rank</th>
           <th>Title</th>
           <th>Synopsis</th>
           <th>Trailer URL</th>
           <th>Release Date</th>
-          <th>Total View 7 Last Days</th>
         </tr>
       </thead>
       <tbody>
-        <!-- Dynamic content will be loaded here -->
+        {% for trailer in trailers %}
+          <tr>
+            <td>{{ trailer.title }}</td>
+            <td>{{ trailer.synopsis }}</td>
+            <td><a href="{{ trailer.trailer_url }}" target="_blank">Watch Trailer</a></td>
+            <td>{{ trailer.release_date }}</td>
+          </tr>
+        {% endfor %}
       </tbody>
     </table>
   </div>
@@ -92,7 +97,14 @@
         </tr>
       </thead>
       <tbody>
-        <!-- Dynamic content will be loaded here -->
+        {% for film in film_list %}
+          <tr>
+            <td>{{ film.title }}</td>
+            <td>{{ film.synopsis }}</td>
+            <td><a href="{{ film.trailer_url }}" target="_blank">Watch Trailer</a></td>
+            <td>{{ film.release_date }}</td>
+          </tr>
+        {% endfor %}
       </tbody>
     </table>
   </div>
@@ -109,16 +121,18 @@
         </tr>
       </thead>
       <tbody>
-        <!-- Dynamic content will be loaded here -->
+        {% for series in series_list %}
+          <tr>
+            <td>{{ series.title }}</td>
+            <td>{{ series.synopsis }}</td>
+            <td><a href="{{ series.trailer_url }}" target="_blank">Watch Trailer</a></td>
+            <td>{{ series.release_date }}</td>
+          </tr>
+        {% endfor %}
       </tbody>
     </table>
   </div>
 
 </div>
-
-<script>
-</script>
-
-</body>
 
 {% endblock content %}
