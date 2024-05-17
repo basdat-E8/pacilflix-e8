@@ -8,29 +8,19 @@
 
 <style>
   body {
-    background-color: #1f1f3d; /* dark bluish-gray, replacing the light peach tone */
-    color: #f0ece3; /* light color for readability, replacing the dark slate gray */
+    background-color: #1f1f3d; /* dark bluish-gray */
     font-family: Arial, sans-serif;
+    color: #f0ece3; 
     padding: 20px;
   }
-  h1, h2 {
-    color: #f0ece3; /* ensuring headers are readable against the dark background */
-  }
-  ul, p {
-    margin: 10px 0;
-    padding: 0;
-  }
-  li {
-    margin-bottom: 5px;
-  }
   .section {
-    background-color: #292947; /* darker bluish-gray, replacing light beige */
+    background-color: #292947; /* darker blue-gray */
     padding: 10px;
     margin-bottom: 20px;
     border-radius: 5px;
   }
   .button {
-    background-color: #3d1f1f; /* dark reddish-brown, replacing medium brown */
+    background-color: #3d1f1f; /* dark reddish-brown */
     color: #ffffff;
     padding: 5px 15px;
     border: none;
@@ -38,60 +28,91 @@
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
+    margin: 5px;
   }
   .info {
-    background-color: #0b0b29; /* very dark blue, replacing intermediate brown */
+    background-color: #0b0b29; /* very dark blue */
     padding: 10px;
     border-radius: 5px;
   }
-  .info p, .info ul {
-    margin: 5px 0;
+  ul {
+    list-style-type: disc;
+    padding-left: 20px;
+  }
+  li {
+    margin-bottom: 5px;
+    background-color: #f0ece3;
+    color: #1f1f3d; /* dark blue */
+    padding: 5px;
+    border-radius: 4px;
   }
 </style>
 
-</head>
-<body>
-
+<h1>{{ series_data.title }}</h1>
 <div class="section">
-  <h1>Judul: <span id="seriesTitle"><data></span></h1>
+  <h1>Judul: <span id="seriesTitle">{{ series_data.title }}</span></h1>
   <h2>Episodes:</h2>
   <ul id="episodeLinks">
-    <li><a href="#">Episode 1</a></li>
-    <li><a href="#">Episode N</a></li>
+    {% for episode in episodes %}
+      <li><a href="{% url 'tayangan:show_halaman_episode' id_series=episode.id_series sub_judul=episode.sub_title %}">{{ episode.sub_title }}</a> - {{ episode.release_date }}</li>
+    {% endfor %}
   </ul>
   <a href="#" class="button">Download Show</a>
   <a href="#" class="button">Favorite Show</a>
 </div>
 
 <div class="info">
-  <p>Total View: <span id="totalViews"><data></span></p>
-  <p>Rating: <span id="rating"><data></span></p>
-  <p>Sinopsis: <span id="synopsis"><data></span></p>
+  <p>Sinopsis: <span id="synopsis">{{ series_data.synopsis }}</span></p>
   <p>Genre:</p>
   <ul id="genres">
-    <li><data_genre_1></li>
-    <li><data_genre_n></li>
+    {% for genre in genres %}
+      <li>{{ genre }}</li>
+    {% endfor %}
   </ul>
-  <p>Country: <span id="country"><data></span></p>
+  <p>Country: <span id="country">{{ series_data.country }}</span></p>
   <p>Cast:</p>
   <ul id="cast">
-    <li><nama_pemain_1></li>
-    <li><nama_pemain_n></li>
+    {% for actor in cast %}
+      <li>{{ actor }}</li>
+    {% endfor %}
   </ul>
   <p>Screenwriters:</p>
   <ul id="screenwriters">
-    <li><nama_penulis_skenario_1></li>
-    <li><nama_penulis_skenario_3></li>
+    {% for writer in screenwriters %}
+      <li>{{ writer }}</li>
+    {% endfor %}
   </ul>
-  <p>Director: <span id="director"><data></span></p>
+  <p>Director: <span id="director">{{ series_data.director }}</span></p>
 </div>
 
-<!-- Include the reviews section here, which you may want to structure similarly -->
-<div class="section">
-  <h2>Reviews:</h2>
-  <!-- Reviews would be listed here -->
+<div style="padding-top: 60px;">
+  <div class="review-section">
+    <h2>Bagian Ulasan</h2>
+    <form class="review-form" method="POST" action="{% url 'tayangan:show_halaman_series' id=series_data.id %}">
+      {% csrf_token %}
+      <input type="text" id="reviewDescription" name="reviewDescription" placeholder="Input untuk deskripsi ulasan">
+      <select id="rating" name="rating">
+        <option value="5">★★★★★</option>
+        <option value="4">★★★★☆</option>
+        <option value="3">★★★☆☆</option>
+        <option value="2">★★☆☆☆</option>
+        <option value="1">★☆☆☆☆</option>
+      </select>
+      <button type="submit" class="submit-button">Submit</button>
+    </form>
+    
+    <h3>Daftar Ulasan:</h3>
+    <ul class="review-list">
+      {% for review in reviews %}
+        <li>
+          <strong>{{ review.title }}</strong><br>
+          Rating: {{ review.rating }}<br>
+          Deskripsi: {{ review.description }}<br>
+          <small>{{ review.timestamp }} oleh {{ review.username }}</small>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
 </div>
-
-</body>
 
 {% endblock content %}

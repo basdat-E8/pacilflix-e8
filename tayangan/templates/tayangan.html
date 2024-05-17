@@ -9,19 +9,32 @@
 <style>
   body {
     background-color: #1f1f3d; /* dark blue */
-    color: #f0ece3; /* adjusted light color for better readability */
+    color: #f0ece3; 
     font-family: Arial, sans-serif;
+    padding: 50px;
   }
   .search-bar {
     background-color: #292947; /* darker blue */
     padding: 1rem;
+    margin-bottom: 20px;
+    border-radius: 8px;
   }
   input[type="search"] {
     width: 100%;
     padding: 0.5rem;
-    margin-bottom: 1rem;
     border: none;
     border-radius: 4px;
+  }
+  .card {
+    background-color: #292947; /* darker blue */
+    color: #f0ece3;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 20px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  .card h2, .card h3 {
+    margin: 0.5rem 0;
   }
   table {
     width: 100%;
@@ -35,7 +48,7 @@
     border: 1px solid #0b0b29; /* very dark blue */
   }
   td {
-    background-color: #f0ece3; /* light color for contrast */
+    background-color: #f0ece3;
     color: #3d1f1f; /* reddish-brown */
     padding: 0.5rem;
     border: 1px solid #3d1f1f; /* reddish-brown */
@@ -54,64 +67,82 @@
   }
 </style>
 
-</head>
-<body>
-
 <div class="search-bar" style="padding-top: 100px;">
-  <input type="search" id="searchBox" placeholder="Search shows...">
+  <form method="get" action="{% url 'tayangan:show_tayangan_search' %}">
+    <input type="search" id="searchBox" name="q" placeholder="Search shows...">
+  </form>
 </div>
 
-<h1>Top Shows This Week</h1>
+<div class="card">
+  <h2>Top Shows This Week</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Title</th>
+        <th>Synopsis</th>
+        <th>Trailer URL</th>
+        <th>Release Date</th>
+        <th>Total View Last 7 Days</th>
+        <th>View Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Rows with show data will go here -->
+    </tbody>
+  </table>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Rank</th>
-      <th>Title</th>
-      <th>Synopsis</th>
-      <th>Trailer URL</th>
-      <th>Release Date</th>
-      <th>Total View Last 7 Days</th>
-      <th>View Details</th>
-    </tr>
-  </thead>
-  <tbody>
-    <!-- Rows with show data will go here -->
-  </tbody>
-</table>
+<div class="card">
+  <h2>Films</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Synopsis</th>
+        <th>Trailer URL</th>
+        <th>Release Date</th>
+        <th>View Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for film in film_list %}
+        <tr>
+          <td>{{ film.title }}</td>
+          <td>{{ film.synopsis }}</td>
+          <td><a href="{{ film.trailer_url }}" target="_blank">Watch Trailer</a></td>
+          <td>{{ film.release_date }}</td>
+          <td><a href="{% url 'tayangan:show_halaman_film' film.id %}" class="button">View Details</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 
-<h2>Films</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Synopsis</th>
-      <th>Trailer URL</th>
-      <th>Release Date</th>
-      <th>View Details</th>
-    </tr>
-  </thead>
-  <tbody>
-    <!-- Rows with film data will go here -->
-  </tbody>
-</table>
-
-<h2>Series</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Synopsis</th>
-      <th>Trailer URL</th>
-      <th>Release Date</th>
-      <th>View Details</th>
-    </tr>
-  </thead>
-  <tbody>
-    <!-- Rows with series data will go here -->
-  </tbody>
-</table>
-
-</body>
+<div class="card">
+  <h2>Series</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Synopsis</th>
+        <th>Trailer URL</th>
+        <th>Release Date</th>
+        <th>View Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for series in series_list %}
+        <tr>
+          <td>{{ series.title }}</td>
+          <td>{{ series.synopsis }}</td>
+          <td><a href="{{ series.trailer_url }}" target="_blank">Watch Trailer</a></td>
+          <td>{{ series.release_date }}</td>
+          <td><a href="{% url 'tayangan:show_halaman_series' series.id %}" class="button">View Details</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 
 {% endblock content %}
