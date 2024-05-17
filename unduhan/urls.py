@@ -4,5 +4,6 @@ from unduhan.views import *
 app_name = 'unduhan'
 
 urlpatterns = [
-    path('', show_daftar_unduhan, name='show_daftar_unduhan')
+    path('', show_unduhan, name='show_unduhan'),
+    path('remove/', remove_unduhan, name='remove_unduhan'),
 ]

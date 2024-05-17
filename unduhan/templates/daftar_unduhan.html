@@ -93,18 +93,19 @@
         </tr>
         </thead>
         <tbody>
-        <!-- Isi tabel dengan daftar unduhan -->
+        {% for item in unduhan %}
         <tr>
-            <td style="text-align: left;">Contoh Tayangan 1</td>
-            <td>2024-04-30 10:00</td>
-            <td><button class="btn btn-danger" onclick="hapusTayangan(1)">Hapus</button></td>
+            <td style="text-align: left;">{{ item.judul }}</td>
+            <td>{{ item.formatted_timestamp }}</td>
+            <td>
+                <form method="post" action="{% url 'unduhan:remove_unduhan' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="id_tayangan" value="{{ item.id }}">
+                    <button class="btn btn-danger" type="submit">Hapus</button>
+                </form>
+            </td>
         </tr>
-        <tr>
-            <td style="text-align: left;">Contoh Tayangan 1</td>
-            <td>2024-04-29 15:30</td>
-            <td><button class="btn btn-danger" onclick="hapusTayangan(2)">Hapus</button></td>
-        </tr>
-        <!-- tambahkan baris untuk setiap tayangan diunduh -->
+        {% endfor %}
         </tbody>
     </table>
 
