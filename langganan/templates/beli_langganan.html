@@ -50,7 +50,7 @@
     <!-- Informasi Paket yang Ingin Dibeli -->
     <div class="mb-5">
         <h2 class="judul">Informasi Paket yang Ingin Dibeli</h2>
-        <table class="table">
+        <table class="table" name="detail-paket">
             <thead  >
                 <tr>
                     <th scope="col">Nama</th>
@@ -60,14 +60,6 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Dummy data for package to be purchased -->
-                <tr>
-                    <td>Subscription B</td>
-                    <td>$15/month</td>
-                    <td>4K</td>
-                    <td>Mobile, Tablet, PC, TV</td>
-                </tr>
-                <!-- Add more rows as needed -->
             </tbody>
         </table>
     </div>
@@ -76,17 +68,91 @@
     <div class="mb-5">
         <h2 class="judul">Pilih Metode Pembayaran</h2>
         <select class="form-control mb-3" id="metode_pembayaran">
-            <option value="transferbank">Transfer Bank</option>
-            <option value="kartukredit">Kartu Kredit</option>
-            <option value="ewallet">E-Wallet</option>
+            <option value="Bank Transfer">Transfer Bank</option>
+            <option value="Credit Card">Kartu Kredit</option>
+            <option value="e-Wallet">E-Wallet</option>
         </select>
-        <button class="btn btn-primary btn-block">Bayar</button>
+        <button class="btn btn-primary btn-block" onclick="beliPaket()">Bayar</button>
     </div>
 
 </div>
 
 <script>
-    showNavbar(true);
+
+    async function beliPaket() {
+        const metode_pembayaran = document.querySelector("#metode_pembayaran").value;
+        const response = await fetch('process/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ 
+                "metode_pembayaran":metode_pembayaran,
+                "paket":"{{ paket }}"
+            })
+        });
+
+        const data = await response.json();
+
+        if (data.status === 'success') {
+            alert('Pembelian berhasil!');
+            window.location.href = "{% url 'langganan:show_langganan' %}";
+        } else {
+            alert('Pembelian gagal!\n' + data.message);
+        }
+    }
+
+    async function refreshDetailPaket() {
+        const response = await fetch('get-detail/{{  paket }}');
+
+        let data = (await response.json()).data;
+        data = mergeDuplicates(data);
+        data = data[0];
+
+
+        const table = document.querySelector("table[name=detail-paket] tbody");
+        table.innerHTML = "";
+        
+        const row = table.insertRow();
+        row.innerHTML = `
+            <td>${data.nama}</td>
+            <td>${data.harga}</td>
+            <td>${data.dukungan_perangkat}</td>
+            <td>${data.resolusi_layar}</td>
+        `;
+
+    }
+
+    function mergeDuplicates(data) {
+
+        const merged = data.reduce((acc, current) => {
+            const key = `${current.nama_paket}-${current.harga}-${current.resolusi_layar}-${current.start_date_time}-${current.end_date_time}`;
+            
+            if (!acc[key]) {
+                acc[key] = {
+                    ...current,
+                    dukungan_perangkat: [current.dukungan_perangkat]
+                };
+            } else {
+                if (!acc[key].dukungan_perangkat.includes(current.dukungan_perangkat)) {
+                    acc[key].dukungan_perangkat.push(current.dukungan_perangkat);
+                }
+            }
+            
+            return acc;
+        }, {});
+
+        return Object.values(merged).map(item => ({
+            ...item,
+            dukungan_perangkat: item.dukungan_perangkat.sort().join(', ')
+        }));
+
+    }
+
+    document.addEventListener("DOMContentLoaded", async () => {
+        await refreshDetailPaket();
+    });
+
 </script>
     
 {% endblock content %}
