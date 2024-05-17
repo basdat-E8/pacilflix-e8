@@ -5,15 +5,16 @@
 {% include 'navbar.html' %}
 
 <title>Search Results for Trailers</title>
+
 <style>
   body {
-    background-color: #1f1f3d; /* dark bluish-gray, replacing light peach tone */
+    background-color: #1f1f3d; /* dark bluish-gray */
     font-family: Arial, sans-serif;
-    color: #f0ece3; /* adjusted to a lighter tone for readability, replacing very dark brown */
+    color: #f0ece3;
     padding: 20px;
   }
   .search-box {
-    background-color: #292947; /* darker blue-gray, replacing light beige */
+    background-color: #292947; /* darker bluish-gray */
     padding: 10px;
     margin-bottom: 20px;
     border-radius: 5px;
@@ -22,64 +23,109 @@
     width: 100%;
     padding: 8px;
     margin-top: 8px;
-    border: 1px solid #33335b; /* medium blue-gray, replacing dark brown */
+    border: 1px solid #3d1f1f; /* dark reddish-brown */
     border-radius: 4px;
   }
   table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #f0ece3; /* light grayish tone for contrast, replacing white */
+    background-color: #f0ece3;
     border-radius: 5px;
-    overflow: hidden;
   }
   th, td {
-    border: 1px solid #3d1f1f; /* dark reddish-brown, replacing medium brown */
+    border: 1px solid #33335b; /* medium bluish-gray */
     padding: 8px;
     text-align: left;
   }
   th {
-    background-color: #0b0b29; /* very dark blue, replacing intermediate brown */
-    color: #ffffff; /* maintaining white for readability */
+    background-color: #0b0b29; /* very dark blue */
+    color: #ffffff;
   }
   td {
-    background-color: #f0ece3; /* maintaining for contrast and readability */
-  }
-  .no-result {
     background-color: #f0ece3;
-    text-align: center;
-    padding: 10px;
+  }
+  .button-link {
+    background-color: #3d1f1f; /* dark reddish-brown */
+    color: #ffffff;
+    padding: 5px 10px;
+    text-decoration: none;
     border-radius: 4px;
+    display: inline-block;
   }
 </style>
 
-</head>
-<body>
-
-<div class="search-box" style="padding-top: 65px;">
-  <label for="searchInput">HASIL PENCARIAN</label>
-  <input type="text" id="searchInput" placeholder="Input Pencarian Tayangan berdasarkan judul">
+<div class="search-box">
+  <label for="searchInput">Search Results for: {{ query }}</label>
 </div>
 
+<h2>Trailers</h2>
 <table>
   <thead>
     <tr>
-      <th>Judul</th>
-      <th>Sinopsis Trailer</th>
-      <th>URL Trailer</th>
-      <th>Tanggal Rilis Trailer</th>
+      <th>Rank</th>
+      <th>Title</th>
+      <th>Synopsis</th>
+      <th>Trailer URL</th>
+      <th>Release Date</th>
+      <th>Total View 7 Last Days</th>
     </tr>
   </thead>
-  <tbody id="searchResults">
-    <!-- Search results will be injected here -->
-    <tr>
-      <td></td>
-    </tr>
+  <tbody>
+    {% for trailer in trailer_results %}
+      <tr>
+        <td>{{ trailer.rank }}</td>
+        <td>{{ trailer.title }}</td>
+        <td>{{ trailer.synopsis }}</td>
+        <td><a href="{{ trailer.trailer_url }}" target="_blank">Watch Trailer</a></td>
+        <td>{{ trailer.release_date }}</td>
+        <td>{{ trailer.total_views }}</td>
+      </tr>
+    {% endfor %}
   </tbody>
 </table>
 
-<script>
-</script>
+<h2>Films</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Synopsis</th>
+      <th>Trailer URL</th>
+      <th>Release Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for film in film_results %}
+      <tr>
+        <td>{{ film.title }}</td>
+        <td>{{ film.synopsis }}</td>
+        <td><a href="{{ film.trailer_url }}" target="_blank">Watch Trailer</a></td>
+        <td>{{ film.release_date }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
 
-</body>
+<h2>Series</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Synopsis</th>
+      <th>Trailer URL</th>
+      <th>Release Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for series in series_results %}
+      <tr>
+        <td>{{ series.title }}</td>
+        <td>{{ series.synopsis }}</td>
+        <td><a href="{{ series.trailer_url }}" target="_blank">Watch Trailer</a></td>
+        <td>{{ series.release_date }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
 
 {% endblock content %}

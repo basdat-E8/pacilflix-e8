@@ -9,7 +9,7 @@
 <style>
   body {
     background-color: #1f1f3d; /* dark blue */
-    color: #f0ece3; /* adjusted light color for better readability */
+    color: #f0ece3; 
     font-family: Arial, sans-serif;
   }
   .search-bar {
@@ -54,11 +54,10 @@
   }
 </style>
 
-</head>
-<body>
-
 <div class="search-bar" style="padding-top: 100px;">
-  <input type="search" id="searchBox" placeholder="Search shows...">
+  <form method="get" action="{% url 'tayangan:show_tayangan_search' %}">
+    <input type="search" id="searchBox" name="q" placeholder="Search shows...">
+  </form>
 </div>
 
 <h1>Top Shows This Week</h1>
@@ -92,7 +91,15 @@
     </tr>
   </thead>
   <tbody>
-    <!-- Rows with film data will go here -->
+    {% for film in film_list %}
+      <tr>
+          <td>{{ film.title }}</td>
+          <td>{{ film.synopsis }}</td>
+          <td><a href="{{ film.trailer_url }}" target="_blank">Watch Trailer</a></td>
+          <td>{{ film.release_date }}</td>
+          <td><a href="{% url 'tayangan:show_halaman_film' film.id %}">View Details</a></td>
+      </tr>
+    {% endfor %}
   </tbody>
 </table>
 
@@ -108,10 +115,16 @@
     </tr>
   </thead>
   <tbody>
-    <!-- Rows with series data will go here -->
+    {% for series in series_list %}
+      <tr>
+          <td>{{ series.title }}</td>
+          <td>{{ series.synopsis }}</td>
+          <td><a href="{{ series.trailer_url }}" target="_blank">Watch Trailer</a></td>
+          <td>{{ series.release_date }}</td>
+          <td><a href="{% url 'tayangan:show_halaman_series' series.id %}">View Details</a></td>
+      </tr>
+    {% endfor %}
   </tbody>
 </table>
-
-</body>
 
 {% endblock content %}

@@ -10,7 +10,7 @@
   body {
     background-color: #1f1f3d; /* dark bluish-gray */
     font-family: Arial, sans-serif;
-    color: #f0ece3; /* light color for readability */
+    color: #f0ece3; 
     padding: 20px;
   }
   .section {
@@ -21,7 +21,7 @@
   }
   .button {
     background-color: #3d1f1f; /* dark reddish-brown */
-    color: #ffffff; /* white for contrast */
+    color: #ffffff;
     padding: 5px 15px;
     border: none;
     border-radius: 5px;
@@ -36,47 +36,52 @@
     border-radius: 5px;
   }
   ul {
-    list-style-type: none;
-    padding: 0;
+    list-style-type: disc;
+    padding-left: 20px;
   }
   li {
     margin-bottom: 5px;
-    background-color: #f0ece3; /* light grayish tone for item background */
+    background-color: #f0ece3;
+    color: #1f1f3d; /* dark blue */
     padding: 5px;
     border-radius: 4px;
   }
 </style>
 
-</head>
-<body>
-
+<h1>{{ film_data.title }}</h1>
 <div class="section">
-  <h1>Title: <span id="filmTitle"><data></span></h1>
-  <button class="button" onclick="">Watch Film</button>
-  <button class="button" onclick="">Favorite Film</button>
+  <h1>Title: <span id="filmTitle">{{ film_data.title }}</span></h1>
+  <button class="button" onclick="window.open('{{ film_data.film_url }}', '_blank')">Watch Film</button>
+  <button class="button">Favorite Film</button>
 </div>
 
 <div class="info">
-  <p>Total Views: <span id="totalViews"><data></span></p>
-  <p>Average Rating: <span id="rating"><data></span></p>
-  <p>Synopsis: <span id="synopsis"><data></span></p>
-  <p>Film Duration: <span id="duration"><data></span></p>
-  <p>Release Date: <span id="releaseDate"><data></span></p>
-  <p>Film URL: <a href="#" target="_blank">Watch Here</a></p>
+  <p>Total Views: <span id="totalViews">{{ film_data.total_views }}</span></p>
+  <p>Average Rating: <span id="rating">{{ film_data.rating }}</span></p>
+  <p>Synopsis: <span id="synopsis">{{ film_data.synopsis }}</span></p>
+  <p>Film Duration: <span id="duration">{{ film_data.duration }}</span></p>
+  <p>Release Date: <span id="releaseDate">{{ film_data.release_date }}</span></p>
+  <p>Film URL: <a href="{{ film_data.film_url }}" target="_blank">Watch Here</a></p>
   <p>Genre:</p>
   <ul id="genres">
-    <li><nama_genre_1></li>
+    {% for genre in genres %}
+      <li>{{ genre }}</li>
+    {% endfor %}
   </ul>
-  <p>Country of Origin: <span id="country"><data></span></p>
+  <p>Country of Origin: <span id="country">{{ film_data.country }}</span></p>
   <p>Cast:</p>
   <ul id="cast">
-    <li><nama_pemain_1></li>
+    {% for actor in cast %}
+      <li>{{ actor }}</li>
+    {% endfor %}
   </ul>
   <p>Screenwriters:</p>
   <ul id="screenwriters">
-    <li><nama_penulis_skenario_1></li>
+    {% for writer in screenwriters %}
+      <li>{{ writer }}</li>
+    {% endfor %}
   </ul>
-  <p>Director: <span id="director"><data></span></p>
+  <p>Director: <span id="director">{{ film_data.director }}</span></p>
 </div>
 
 <!-- Reviews section can be similarly structured -->
@@ -84,10 +89,5 @@
   <h2>Reviews:</h2>
   <!-- Reviews would be listed here -->
 </div>
-
-<script>
-</script>
-
-</body>
 
 {% endblock content %}
