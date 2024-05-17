@@ -3,14 +3,14 @@ FROM python:3.9-slim
 
 # Menggunakan variabel lingkungan sebagai build argument
 ARG DB_NAME
-ARG DB_USER
+ARG DB_USERNAME
 ARG DB_PASSWORD
 ARG DB_HOST
 ARG DB_PORT
 
 # Set nilai variabel lingkungan dalam lingkungan Docker
 ENV DB_NAME=$DB_NAME
-ENV DB_USER=$DB_USER
+ENV DB_USERNAME=$DB_USERNAME
 ENV DB_PASSWORD=$DB_PASSWORD
 ENV DB_HOST=$DB_HOST
 ENV DB_PORT=$DB_PORT
