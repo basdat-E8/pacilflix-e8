@@ -18,20 +18,15 @@ ENV DATABASE_PORT=$DATABASE_PORT
 # Set the working directory in the container
 WORKDIR /docker-app
 
-# Copy the requirements file into the container at /docker-app
-COPY requirements.txt /docker-app/
-
-# Install any dependencies specified in requirements.txt
+# Copy the requirements file and install dependencies
+COPY requirements.txt .
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
-# Copy the current directory contents into the container at /docker-app
-COPY . /docker-app/
+# Copy the rest of the application code
+COPY . .
 
 # Expose port 8000 to the outside world
 EXPOSE 8000
 
-# Run migrate DB
-RUN python manage.py migrate
-
-# Jalankan Gunicorn
-CMD ["gunicorn", "app.nani.wsgi", "--bind", "0.0.0.0:8000"]
+# Run database migrations and start the application with Gunicorn
+CMD ["sh", "-c", "python manage.py migrate && gunicorn app.nani.wsgi --bind 0.0.0.0:8000"]
