@@ -50,11 +50,17 @@
         <h1 class="mb-4">Daftar Kontributor</h1>
 
         <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Search by Tipe" aria-label="Search by Tipe" aria-describedby="button-search">
+            <select class="form-control" aria-label="Search by Tipe" aria-describedby="button-search" onchange="refreshTable()">
+                <option value="none">Semua</option>
+                <option value="penulis_skenario">Penulis Skenario</option>
+                <option value="pemain">Pemain</option>
+                <option value="sutradara">Sutradara</option>
+            </select>
             <div class="input-group-append">
                 <button class="btn btn-primary" type="button" id="button-search">Search</button>
             </div>
         </div>
+        
         
         <table class="table">
             <thead>
@@ -65,53 +71,35 @@
                     <th scope="col">Kewarganegaraan</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>John Doe</td>
-                    <td>A</td>
-                    <td>Male</td>
-                    <td>USA</td>
-                </tr>
-                <tr>
-                    <td>Jane Smith</td>
-                    <td>B</td>
-                    <td>Female</td>
-                    <td>UK</td>
-                </tr>
-                <tr>
-                    <td>Michael Johnson</td>
-                    <td>A</td>
-                    <td>Male</td>
-                    <td>Canada</td>
-                </tr>
-                <tr>
-                    <td>Sarah Lee</td>
-                    <td>C</td>
-                    <td>Female</td>
-                    <td>Australia</td>
-                </tr>
-                <tr>
-                    <td>David Brown</td>
-                    <td>B</td>
-                    <td>Male</td>
-                    <td>Germany</td>
-                </tr>
+            <tbody name="table-content">
             </tbody>
-            <!-- <tbody>
-                {% for unduhan in unduhan_list %}
-                <tr>
-                    <td>{{ unduhan.nama }}</td>
-                    <td>{{ unduhan.tipe }}</td>
-                    <td>{{ unduhan.jenis_kelamin }}</td>
-                    <td>{{ unduhan.kewarganegaraan }}</td>
-                </tr>
-                {% endfor %}
-            </tbody> -->
         </table>
 
     </div>
 
     <script>
+        async function refreshTable() {
+            const tableContent = document.querySelector('tbody[name="table-content"]');
+            tableContent.innerHTML = '';
+            
+            const tipe = document.querySelector('select').value;
+            const response = await fetch(`/kontributor/get-list/{{ id_tayangan }}/${tipe}`);
+            var data = (await response.json()).data;
+
+            data.forEach(kontributor => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${kontributor.nama}</td>
+                    <td>${kontributor.tipe}</td>
+                    <td>${kontributor.jenis_kelamin}</td>
+                    <td>${kontributor.kewarganegaraan}</td>
+                `;
+                tableContent.appendChild(row);
+            });
+        }
+
+        document.onContentLoaded = refreshTable();
+
         showNavbar(true);
     </script>
 
