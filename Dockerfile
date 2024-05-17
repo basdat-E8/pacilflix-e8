@@ -29,4 +29,4 @@ COPY . .
 EXPOSE 8000
 
 # Run database migrations and start the application with Gunicorn
-CMD ["sh", "-c", "python manage.py migrate && gunicorn app.nani.wsgi --bind 0.0.0.0:8000"]
+CMD ["sh", "-c", "python manage.py migrate && gunicorn pacilflix.wsgi --bind 0.0.0.0:8000"]
