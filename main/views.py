@@ -1,6 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 
 def show_landing(request):
-    return render(request, "landingpage.html")
+    context = {
+        "is_logged_in": False
+    }
+    if 'username' in request.session:
+        context["is_logged_in"] = True
+        context["username"] = request.session["username"]
+        return redirect("tayangan:show_tayangan")
+
+    return render(request, "landingpage.html", context)
