@@ -36,13 +36,11 @@ def register(request):
         password = request.POST.get('password')
         negara_asal = request.POST.get('asal_negara')
         
-        user = query("SELECT username FROM pengguna WHERE username = %s", (username,))
-
-        if user:
-            context['message'] = "Username sudah ada"
+        tes = query("INSERT INTO pengguna (username, password, negara_asal) VALUES (%s, %s, %s)", (username, password, negara_asal))
+        print(type(tes))
+        if isinstance(tes, Exception): 
+            context['message'] = "Username sudah ada. Silakan coba lagi"
         else:
-            tes = query("INSERT INTO pengguna (username, password, negara_asal) VALUES (%s, %s, %s)", (username, password, negara_asal))
-
             request.session['username'] = username
             return redirect('authentication:login')
     
