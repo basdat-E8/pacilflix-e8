@@ -8,22 +8,33 @@ import json
 
 # Create your views here.
 def logged_in(request):
-    return request.session.get('username', None) is not None
+    return request.session.get('username', None) is not None and request.session.get('is_logged_in', False)
 
 def show_langganan(request):
     if not logged_in(request):
-        return redirect("authentication:login")
-    return render(request, "kelola_langganan.html")
+        return redirect("authentication:logout")
+    
+    response = {
+        "is_logged_in": True
+    }
+
+    return render(request, "kelola_langganan.html", response)
 
 def show_beli_langganan(request, paket):
     if not logged_in(request):
-        return redirect("authentication:login")
-    return render(request, "beli_langganan.html", {"paket": paket})
+        return redirect("authentication:logout")
+    
+    response = {
+        "paket": paket,
+        "is_logged_in": True
+    }
+
+    return render(request, "beli_langganan.html", response)
 
 @csrf_exempt
 def beli_langganan(request):
     if not logged_in(request):
-        return redirect("authentication:login")
+        return redirect("authentication:logout")
     
     body = json.loads(request.body)
     paket = body.get("paket", None)
@@ -81,7 +92,7 @@ def beli_langganan(request):
 
 def get_detail_paket(request, paket):
     if not logged_in(request):
-        return redirect("authentication:login")
+        return redirect("authentication:logout")
     
     if request.method == "GET":
         query_str = f"""
@@ -108,7 +119,7 @@ def get_detail_paket(request, paket):
 
 def get_riwayat_transaksi(request):
     if not logged_in(request):
-        return redirect("authentication:login")
+        return redirect("authentication:logout")
     
     username = request.session.get('username', None)
     response = {}
@@ -135,7 +146,7 @@ def get_riwayat_transaksi(request):
 
 def get_daftar_paket(request):
     if not logged_in(request):
-        return redirect("authentication:login")
+        return redirect("authentication:logout")
     
     if request.method == "GET":
         response = {}
@@ -160,7 +171,7 @@ def get_daftar_paket(request):
 
 def get_langganan_aktif_user(request):
     if not logged_in(request):
-        return redirect("authentication:login")
+        return redirect("authentication:logout")
     
     username = request.session.get('username')
     if request.method == "GET":
@@ -189,7 +200,7 @@ def get_langganan_aktif_user(request):
             LIMIT 1
         """
         data = query(query_str)
-        response["data"] = data
+        response["data"] = data 
         response["status"] = "success"
 
         return JsonResponse(response, status=200, safe=False)
