@@ -70,10 +70,25 @@
     .modal-footer {
         border-top: none;
     }
+
+    /* Tambahan gaya untuk tombol kembali */
+    .btn-back {
+        background-color: #17a2b8;
+        border-color: #17a2b8;
+        color: white;
+    }
+
+    .btn-back:hover {
+        background-color: #138496;
+        border-color: #138496;
+    }
 </style>
 <div class="container my-5">
-    <h1 class="text-center mb-5">Detail Daftar Favorit</h1>
+    <h1 class="text-center mb-5" style="margin-top: 100px;">Detail Daftar Favorit</h1>
     <div class="row justify-content-center">
+        <div class="col-md-12 mb-3">
+            <a href="{% url 'favorite:index' %}" class="btn btn-back">Kembali</a>
+        </div>
         <div class="col-md-12">
             <div class="table-responsive">
                 <table class="table align-middle">

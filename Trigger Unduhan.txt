@@ -1,0 +1,16 @@
+CREATE OR REPLACE FUNCTION prevent_early_deletion()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    IF (CURRENT_TIMESTAMP - OLD.timestamp) < INTERVAL '1 day' THEN
+        RAISE EXCEPTION 'Tayangan minimal harus berada di daftar unduhan selama 1 hari agar bisa dihapus.';
+    END IF;
+    RETURN OLD;
+END;
+$$;
+
+CREATE TRIGGER prevent_early_deletion_trigger
+BEFORE DELETE ON tayangan_terunduh
+FOR EACH ROW
+EXECUTE FUNCTION prevent_early_deletion();
