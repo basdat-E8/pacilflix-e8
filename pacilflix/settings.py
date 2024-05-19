@@ -80,6 +80,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'pacilflix.wsgi.application'
 
+CSRF_TRUSTED_ORIGINS = ['http://35.185.186.231/']
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
