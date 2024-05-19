@@ -1,13 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halaman Kelola Langganan</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body> -->
-
 {% extends 'base.html' %}
 
 {% block content %}
@@ -61,7 +51,7 @@
     <!-- Paket Langganan Aktif -->
     <div class="mb-5">
         <h2>Paket Langganan Aktif</h2>
-        <table class="table">
+        <table class="table" name="table-langganan-aktif">
             <thead>
                 <tr>
                     <th scope="col">Nama</th>
@@ -73,16 +63,6 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Dummy data for active subscription -->
-                <tr>
-                    <td>Subscription A</td>
-                    <td>$10/month</td>
-                    <td>1080p</td>
-                    <td>Mobile, Tablet, PC</td>
-                    <td>2024-01-01</td>
-                    <td>2024-12-31</td>
-                </tr>
-                <!-- Add more rows as needed -->
             </tbody>
         </table>
     </div>
@@ -90,7 +70,7 @@
     <!-- Pilih Paket Lain -->
     <div class="mb-5">
         <h2>Pilih Paket Lain</h2>
-        <table class="table">
+        <table class="table" name="table-paket">
             <thead>
                 <tr>
                     <th scope="col">Nama</th>
@@ -101,15 +81,6 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Dummy data for available subscriptions -->
-                <tr>
-                    <td>Subscription B</td>
-                    <td>$15/month</td>
-                    <td>4K</td>
-                    <td>Mobile, Tablet, PC, TV</td>
-                    <td><button class="btn btn-primary">Beli</button></td>
-                </tr>
-                <!-- Add more rows as needed -->
             </tbody>
         </table>
     </div>
@@ -117,7 +88,7 @@
     <!-- Riwayat Transaksi -->
     <div>
         <h2>Riwayat Transaksi</h2>
-        <table class="table">
+        <table class="table" name="table-riwayat-transaksi">
             <thead>
                 <tr>
                     <th scope="col">Nama Paket</th>
@@ -129,16 +100,6 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Dummy data for transaction history -->
-                <tr>
-                    <td>Subscription A</td>
-                    <td>2023-01-01</td>
-                    <td>2023-12-31</td>
-                    <td>Credit Card</td>
-                    <td>2023-01-05</td>
-                    <td>$120</td>
-                </tr>
-                <!-- Add more rows as needed -->
             </tbody>
         </table>
     </div>
@@ -146,9 +107,163 @@
 </div>
 
 <script>
-    showNavbar(true);
+
+    async function beliPaket(namaPaket) {
+
+        // redirect to beli_langganan.html
+        window.location.href = `beli/${namaPaket}`;
+
+    }
+    
+    async function refreshRiwayatTransaksi() {
+
+        const response = await fetch(
+            'get-riwayat/', {
+            method: 'GET'
+        });
+
+        let data = (await response.json()).data;
+        data = data.sort((a, b) => new Date(b.timestamp_pembayaran) - new Date(a.timestamp_pembayaran));
+
+        const tableRiwayatTransaksi = document.querySelector('table[name="table-riwayat-transaksi"] tbody');
+        tableRiwayatTransaksi.innerHTML = '';
+
+        if (data.length > 0) {
+            data.forEach(transaksi => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${transaksi.nama_paket}</td>
+                    <td>${transaksi.start_date_time}</td>
+                    <td>${transaksi.end_date_time}</td>
+                    <td>${transaksi.metode_pembayaran}</td>
+                    <td>${transaksi.timestamp_pembayaran.split("T").join(" ")}</td>
+                    <td>${transaksi.harga}</td>
+                `;
+                tableRiwayatTransaksi.appendChild(row);
+            });
+        } else {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            `;
+            tableRiwayatTransaksi.appendChild(row);
+        }
+    }
+
+    async function refreshDaftarPaket() {
+
+        const response = await fetch(
+            'get-paket/', {
+            method: 'GET'
+        });
+
+        let data = (await response.json()).data;
+        data = mergeDuplicates(data).sort((a, b) => a.harga - b.harga);
+
+        const tablePaket = document.querySelector('table[name="table-paket"] tbody');
+        tablePaket.innerHTML = '';
+
+        data.forEach(paket => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${paket.nama}</td>
+                <td>${paket.harga}</td>
+                <td>${paket.resolusi_layar}</td>
+                <td>${paket.dukungan_perangkat}</td>
+                <td>
+                    <button class="btn btn-primary" name="button-beli" value="${paket.nama}">Beli</button>
+                </td>
+            `;
+            tablePaket.appendChild(row);
+        });
+
+        const buttonsBeli = document.querySelectorAll('button[name="button-beli"]');
+        buttonsBeli.forEach(button => {
+            button.addEventListener('click', () => {
+                beliPaket(button.value);
+            });
+        });
+        
+    }
+
+    async function refreshTableLanggananAktif() {
+
+        const response = await fetch(
+            'get-langganan/', {
+            method: 'GET'
+        });
+        let data = (await response.json()).data;
+
+        console.log(data);
+
+        const tableKelolaLangganan = document.querySelector('table[name="table-langganan-aktif"] tbody');
+        tableKelolaLangganan.innerHTML = '';
+
+        if (data.length > 0) {
+            data.forEach(langganan => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${langganan.nama_paket}</td>
+                    <td>${langganan.harga}</td>
+                    <td>${langganan.resolusi_layar}</td>
+                    <td>${langganan.dukungan_perangkat}</td>
+                    <td>${langganan.start_date_time}</td>
+                    <td>${langganan.end_date_time}</td>
+                `;
+                tableKelolaLangganan.appendChild(row);
+            });
+        } else {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            `;
+            tableKelolaLangganan.appendChild(row);
+        }
+
+    }
+
+    function mergeDuplicates(data) {
+
+        const merged = data.reduce((acc, current) => {
+            const key = `${current.nama_paket}-${current.harga}-${current.resolusi_layar}-${current.start_date_time}-${current.end_date_time}`;
+            
+            if (!acc[key]) {
+                acc[key] = {
+                    ...current,
+                    dukungan_perangkat: [current.dukungan_perangkat]
+                };
+            } else {
+                if (!acc[key].dukungan_perangkat.includes(current.dukungan_perangkat)) {
+                    acc[key].dukungan_perangkat.push(current.dukungan_perangkat);
+                }
+            }
+            
+            return acc;
+        }, {});
+
+        return Object.values(merged).map(item => ({
+            ...item,
+            dukungan_perangkat: item.dukungan_perangkat.sort().join(', ')
+        }));
+
+    }
+
+    document.addEventListener("DOMContentLoaded", async () => {
+        refreshTableLanggananAktif();
+        refreshDaftarPaket();
+        refreshRiwayatTransaksi();
+    });
+    
 </script>
 
 {% endblock content %}
-<!-- </body>
-</html> -->
