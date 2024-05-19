@@ -41,7 +41,7 @@ def get_daftar_kontributor(request, filter_by):
                 JOIN
                     MENULIS_SKENARIO_TAYANGAN mt ON c.id = mt.id_penulis_skenario
 
-                UNION ALL
+                UNION
 
                 SELECT 
                     c.nama, 
@@ -58,7 +58,7 @@ def get_daftar_kontributor(request, filter_by):
                 JOIN
                     MEMAINKAN_TAYANGAN mt ON c.id = mt.id_pemain
 
-                UNION ALL
+                UNION
 
                 SELECT 
                     c.nama, 
@@ -96,7 +96,7 @@ def get_daftar_kontributor(request, filter_by):
             }
 
             sql_query = f"""
-                SELECT 
+                SELECT DISTINCT
                     c.nama, 
                     '{type}' AS tipe, 
                     CASE 
