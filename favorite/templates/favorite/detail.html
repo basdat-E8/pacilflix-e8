@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    body {
+        background-color:  rgb(31, 31, 61); /* Warna ungu */
+        color: white;
+        font-family: Arial, sans-serif;
+    }
+
+    .cover {
+        background-size: cover;
+        background-position: center;
+        background-color:  rgb(31, 31, 61); /* Warna ungu */
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: white;
+    }
+
+    .cover-text {
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    /* Style untuk judul */
+    .judul {
+        text-align: center;
+        color: white;
+    }
+
+    /* Style untuk isi tabel */
+    .table {
+        background-color: transparent;
+        color: white;
+        text-align: center; /* Rata tengah tulisan pada tabel */
+    }
+
+    .table th,
+    .table td {
+        border-color: white;
+    }
+
+    .table th {
+        background-color: rgba(109, 109, 169, 0.5);
+    }
+
+    .btn-primary,
+    .btn-primary:hover {
+        background-color: #17a2b8;
+        border-color: #17a2b8;
+    }
+
+    .btn-danger,
+    .btn-danger:hover {
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+    .modal-content {
+        background-color: rgba(31, 31, 61, 0.9);
+        color: white;
+    }
+
+    .modal-header {
+        border-bottom: none;
+    }
+
+    .modal-footer {
+        border-top: none;
+    }
+
+    /* Tambahan gaya untuk tombol kembali */
+    .btn-back {
+        background-color: #17a2b8;
+        border-color: #17a2b8;
+        color: white;
+    }
+
+    .btn-back:hover {
+        background-color: #138496;
+        border-color: #138496;
+    }
+</style>
+<div class="container my-5">
+    <h1 class="text-center mb-5" style="margin-top: 100px;">Detail Daftar Favorit</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-12 mb-3">
+            <a href="{% url 'favorite:index' %}" class="btn btn-back">Kembali</a>
+        </div>
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col">Judul Tayangan</th>
+                            <th scope="col">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for show in shows %}
+                        <tr>
+                            <td>{{ show.judul }}</td>
+                            <td>
+                                <form method="POST" action="{% url 'favorite:delete_favorite' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="show_id" value="{{ show_id }}">
+                                    <input type="hidden" name="timestamp" value="{{ show.timestamp }}">
+                                    <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

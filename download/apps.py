@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class FavoritConfig(AppConfig):
+class UnduhanConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'favorit'
+    name = 'download'
