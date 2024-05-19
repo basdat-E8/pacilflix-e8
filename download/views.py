@@ -7,7 +7,7 @@ from django.http import JsonResponse
 def index(request):
     username = request.session.get('username')
     if not username:
-        return redirect('authentication:login')
+        return redirect('authentication:logout')
 
     shows = get_downloaded_shows(username)
     available_shows = get_available_shows(username)
@@ -15,7 +15,9 @@ def index(request):
         'shows': shows,
         'available_shows': available_shows,
         'selected_show': None,
-        'expiration_date': None
+        'expiration_date': None,
+        'is_logged_in': True,
+        'username': username
     }
     return render(request, 'index.html', context)
 

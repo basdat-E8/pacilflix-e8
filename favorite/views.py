@@ -8,13 +8,15 @@ import datetime
 def index(request):
     username = request.session.get('username')
     if not username:
-        return redirect('authentication:login')
+        return redirect('authentication:logout')
 
     favorites = get_favorites(username)
     available_shows = get_available_shows(username)
     context = {
         'favorites': favorites,
-        'available_shows': available_shows
+        'available_shows': available_shows,
+        'is_logged_in': True,
+        'username': username
     }
     return render(request, 'favorite/index.html', context)
 
@@ -71,6 +73,7 @@ def get_favorites(username):
 def get_available_shows(username):
     connection = get_db_connection()
     cursor = connection.cursor()
+    cursor.execute("SET search_path TO pacilflix")
     cursor.execute(
         "SELECT TAYANGAN.id, TAYANGAN.judul "
         "FROM TAYANGAN "
@@ -125,7 +128,7 @@ def add_to_daftar_favorit(username):
 def add_to_favorite_view(request):
     username = request.session.get('username')
     if not username:
-        return redirect('authentication:login')
+        return redirect('authentication:logout')
 
     show_id = request.POST.get('show_id')
     add_to_favorite(username, show_id)
@@ -154,7 +157,7 @@ def delete_favorite_view(request):
 
 def favorite_details(request, show_id):
     if not request.session.get('username'):
-        return redirect('authentication:login')
+        return redirect('authentication:logout')
 
     username = request.session.get('username')
     connection = get_db_connection()
@@ -173,4 +176,6 @@ def favorite_details(request, show_id):
         cursor.close()
         connection.close()
 
-    return render(request, 'favorite/detail.html', {'shows': shows, 'show_id': show_id})
+    response = {'shows': shows, 'show_id': show_id, 'is_logged_in': True, 'username': username}
+
+    return render(request, 'favorite/detail.html', response)

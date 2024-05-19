@@ -48,4 +48,5 @@ def register(request):
 def logout(request):
     if 'username' in request.session:
         del request.session['username']
+
     return redirect('main:show_landing')

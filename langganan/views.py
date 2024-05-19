@@ -8,14 +8,15 @@ import json
 
 # Create your views here.
 def logged_in(request):
-    return request.session.get('username', None) is not None and request.session.get('is_logged_in', False)
+    return request.session.get('username', None) is not None
 
 def show_langganan(request):
     if not logged_in(request):
         return redirect("authentication:logout")
     
     response = {
-        "is_logged_in": True
+        "is_logged_in": True,
+        'username': request.session.get('username')
     }
 
     return render(request, "kelola_langganan.html", response)
@@ -26,7 +27,8 @@ def show_beli_langganan(request, paket):
     
     response = {
         "paket": paket,
-        "is_logged_in": True
+        "is_logged_in": True,
+        'username': request.session.get('username')
     }
 
     return render(request, "beli_langganan.html", response)

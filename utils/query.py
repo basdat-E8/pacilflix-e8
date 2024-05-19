@@ -29,8 +29,8 @@ def map_cursor(cursor):
 def query(query_str: str, parameter: tuple = tuple()):
     result = []
     with connection.cursor(cursor_factory=RealDictCursor) as cursor:
-        # cursor.execute("SET search_path TO pacilflix")
-        cursor.execute("SET search_path TO PUBLIC")
+        cursor.execute("SET search_path TO pacilflix")
+        # cursor.execute("SET search_path TO PUBLIC")
         try:
             cursor.execute(query_str, parameter)
             # Handling SELECT queries
@@ -60,5 +60,9 @@ def get_db_connection():
         host=db_host,
         port=db_port
     )
+
+    cursor = connection.cursor()
+    cursor.execute("SET search_path TO pacilflix")
+    cursor.close()
 
     return connection
