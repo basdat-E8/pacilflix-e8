@@ -58,32 +58,6 @@
   <label for="searchInput">Search Results for: {{ query }}</label>
 </div>
 
-<h2>Trailers</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Rank</th>
-      <th>Title</th>
-      <th>Synopsis</th>
-      <th>Trailer URL</th>
-      <th>Release Date</th>
-      <th>Total View 7 Last Days</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for trailer in trailer_results %}
-      <tr>
-        <td>{{ trailer.rank }}</td>
-        <td>{{ trailer.title }}</td>
-        <td>{{ trailer.synopsis }}</td>
-        <td><a href="{{ trailer.trailer_url }}" target="_blank">Watch Trailer</a></td>
-        <td>{{ trailer.release_date }}</td>
-        <td>{{ trailer.total_views }}</td>
-      </tr>
-    {% endfor %}
-  </tbody>
-</table>
-
 <h2>Films</h2>
 <table>
   <thead>

@@ -14,8 +14,102 @@ def show_tayangan(request):
         context["is_logged_in"] = True
         context["username"] = request.session["username"]
 
-    # Query for films
+    isGlobal = request.GET.get('isGlobal', '1') == '1'
+    asal_negara = request.COOKIES.get('negara_asal')
+
     with connection.cursor() as cursor:
+        if isGlobal:
+            query = """
+                SET search_path TO pacilflix;
+
+                WITH film_durasi AS (
+                    SELECT id_tayangan, durasi_film AS durasi, 'film' AS source
+                    FROM film
+                ), 
+                episode_durasi AS (
+                    SELECT id_series AS id_tayangan, SUM(durasi) AS durasi, 'series' AS source
+                    FROM episode
+                    GROUP BY id_series
+                ), 
+                tayangan_durasi AS (
+                    SELECT 
+                        R.*, 
+                        COALESCE(F.durasi, E.durasi) AS durasi,
+                        COALESCE(F.source, E.source) AS source,
+                        EXTRACT(EPOCH FROM (R.end_date_time - R.start_date_time)) / 60 AS time_diff 
+                    FROM 
+                        riwayat_nonton R
+                    LEFT JOIN 
+                        film_durasi F ON R.id_tayangan = F.id_tayangan
+                    LEFT JOIN 
+                        episode_durasi E ON R.id_tayangan = E.id_tayangan
+                )
+
+                SELECT 
+                    TD.source,
+                    TD.id_tayangan,
+                    COUNT(*),
+                    T.*
+                FROM riwayat_nonton R
+                LEFT JOIN tayangan_durasi TD ON R.id_tayangan = TD.id_tayangan
+                LEFT JOIN tayangan T on T.id = TD.id_tayangan
+                WHERE 
+                    TD.time_diff >= (TD.durasi * 70 / 100) AND 
+                    R.end_date_time >= NOW() - INTERVAL '7 days'
+                GROUP BY TD.id_tayangan, T.id, TD.source
+                ORDER BY COUNT(*) DESC
+                LIMIT 10;
+            """
+        else:
+            query = f"""
+                SET search_path TO pacilflix;
+
+                WITH film_durasi AS (
+                    SELECT id_tayangan, durasi_film AS durasi, 'film' AS source
+                    FROM film
+                ), 
+                episode_durasi AS (
+                    SELECT id_series AS id_tayangan, SUM(durasi) AS durasi, 'series' AS source
+                    FROM episode
+                    GROUP BY id_series
+                ), 
+                tayangan_durasi AS (
+                    SELECT 
+                        R.*, 
+                        COALESCE(F.durasi, E.durasi) AS durasi,
+                        COALESCE(F.source, E.source) AS source,
+                        EXTRACT(EPOCH FROM (R.end_date_time - R.start_date_time)) / 60 AS time_diff 
+                    FROM 
+                        riwayat_nonton R
+                    LEFT JOIN 
+                        film_durasi F ON R.id_tayangan = F.id_tayangan
+                    LEFT JOIN 
+                        episode_durasi E ON R.id_tayangan = E.id_tayangan
+                )
+
+                SELECT 
+                    TD.source,
+                    TD.id_tayangan,
+                    COUNT(*),
+                    T.*
+                FROM riwayat_nonton R
+                LEFT JOIN tayangan_durasi TD ON R.id_tayangan = TD.id_tayangan
+                LEFT JOIN tayangan T on T.id = TD.id_tayangan
+                WHERE 
+                    TD.time_diff >= (TD.durasi * 70 / 100) AND 
+                    R.end_date_time >= NOW() - INTERVAL '7 days' AND
+                    T.asal_negara = '{asal_negara}'
+                GROUP BY TD.id_tayangan, T.id, TD.source
+                ORDER BY COUNT(*) DESC
+                LIMIT 10;
+            """
+
+        # Top Tayangan
+        cursor.execute(query)
+        columns = ("source","id_tayangan","count","id","judul","sinopsis","asal_negara","sinopsis_trailer","url_video_trailer","release_date_trailer","id_sutradara")
+        list_top_tayangan = parse_tuple_to_dict(cursor.fetchall(), columns)
+
+        # Query for films
         cursor.execute("""
             SELECT
                 f.id_tayangan,
@@ -38,8 +132,7 @@ def show_tayangan(request):
             for row in cursor.fetchall()
         ]
 
-    # Query for series
-    with connection.cursor() as cursor:
+        # Query for series
         cursor.execute("""
             SELECT
                 s.id_tayangan,
@@ -63,6 +156,7 @@ def show_tayangan(request):
         ]
 
     context.update({
+        'list_top_tayangan': list_top_tayangan,
         'film_list': film_list,
         'series_list': series_list
     })
@@ -188,12 +282,38 @@ def show_halaman_film(request, id):
             for row in cursor.fetchall()
         ]
 
+        # Get Total View Film
+        cursor.execute(rf"""
+            SET search_path to pacilflix; 
+            SELECT COALESCE(
+            (SELECT COUNT(*) FROM riwayat_nonton
+            WHERE id_tayangan='{id}')
+            ,
+            0
+            ) as count
+        """)
+        total_views = cursor.fetchone()[0]
+
+        # Get Average Rating Film
+        cursor.execute(rf"""
+            SET search_path to pacilflix;
+            SELECT COALESCE(
+            (SELECT AVG(rating) FROM ulasan
+            WHERE id_tayangan='{id}')
+            ,
+            0
+            ) AS avg
+        """)
+        rating_avg = float(cursor.fetchone()[0])
+
     context.update({
         'film_data': film_data,
         'genres': genre_list,
         'cast': cast_list,
         'screenwriters': screenwriter_list,
-        'reviews': reviews
+        'reviews': reviews,
+        'total_views': total_views,
+        'rating_avg': rating_avg
     })
     return render(request, "halamanFilm.html", context)
 
@@ -256,6 +376,30 @@ def show_halaman_series(request, id):
                 'country': series[5],
                 'director': series[6]
             }
+
+        # Fetch total views for the series
+        cursor.execute(rf"""
+        SET search_path to pacilflix; 
+        SELECT COALESCE(
+        (SELECT COUNT(*) FROM riwayat_nonton
+        WHERE id_tayangan='{id}')
+        ,
+        0
+        ) as count
+        """)
+        total_views = cursor.fetchone()[0]
+
+        # Fetch average rating for the series
+        cursor.execute(rf"""
+        SET search_path to pacilflix;
+        SELECT COALESCE(
+        (SELECT AVG(rating) FROM ulasan
+        WHERE id_tayangan='{id}')
+        ,
+        0
+        ) AS avg
+        """)
+        rating_avg = float(cursor.fetchone()[0])
 
         # Fetch genres
         cursor.execute("""
@@ -336,6 +480,8 @@ def show_halaman_series(request, id):
 
     context.update({
         'series_data': series_data,
+        'total_views': total_views,
+        'rating_avg': rating_avg,
         'genres': genre_list,
         'cast': cast_list,
         'screenwriters': screenwriter_list,
@@ -532,3 +678,6 @@ def show_tayangan_search(request):
         })
 
     return render(request, "hasilCariTayangan.html", context)
+
+def parse_tuple_to_dict(data, columns):
+    return [dict(zip(columns, row)) for row in data]

@@ -95,7 +95,16 @@
         </tr>
       </thead>
       <tbody>
-        <!-- Rows with show data will go here -->
+        {% for show in list_top_tayangan %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ show.judul }}</td>
+            <td>{{ show.sinopsis }}</td>
+            <td><a href="{{ show.url_video_trailer }}" target="_blank">Watch Trailer</a></td>
+            <td>{{ show.release_date_trailer }}</td>
+            <td>{{ show.count }}</td>
+          </tr>
+        {% endfor %}
       </tbody>
     </table>
   </div> 
@@ -113,7 +122,7 @@
           </tr>
         </thead>
         <tbody>
-          {% for film in film_list %}
+          {% for film in list_film %}
             <tr>
               <td>{{ film.title }}</td>
               <td>{{ film.synopsis }}</td>
@@ -139,7 +148,7 @@
           </tr>
         </thead>
         <tbody>
-          {% for series in series_list %}
+          {% for series in list_series %}
             <tr>
               <td>{{ series.title }}</td>
               <td>{{ series.synopsis }}</td>

@@ -88,7 +88,27 @@
       </tr>
     </thead>
     <tbody>
-      <!-- Rows with show data will go here -->
+      {% for tayangan in list_top_tayangan %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ tayangan.judul }}</td>
+        <td>{{ tayangan.sinopsis }}</td>
+        <td><a href="{{ tayangan.url_video_trailer }}" target="_blank" class="button">Watch Trailer</a></td>
+        <td>{{ tayangan.release_date_trailer }}</td>
+        <td>{{ tayangan.count }}</td>
+        <td>
+          {% if active_paket %}
+            {% if tayangan.source == "film" %}
+              <a href="{% url 'tayangan:show_halaman_film' tayangan.id %}" class="button">View Details</a>
+            {% else %}
+              <a href="{% url 'tayangan:show_halaman_series' tayangan.id %}" class="button">View Details</a>
+            {% endif %}
+          {% else %}
+            <a href="#" class="button" style="background-color: #b00;">Not Subscribed</a>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
     </tbody>
   </table>
 </div>
@@ -110,7 +130,7 @@
         <tr>
           <td>{{ film.title }}</td>
           <td>{{ film.synopsis }}</td>
-          <td><a href="{{ film.trailer_url }}" target="_blank">Watch Trailer</a></td>
+          <td><a href="{{ film.trailer_url }}" target="_blank" class="button">Watch Trailer</a></td>
           <td>{{ film.release_date }}</td>
           <td><a href="{% url 'tayangan:show_halaman_film' film.id %}" class="button">View Details</a></td>
         </tr>
@@ -136,7 +156,7 @@
         <tr>
           <td>{{ series.title }}</td>
           <td>{{ series.synopsis }}</td>
-          <td><a href="{{ series.trailer_url }}" target="_blank">Watch Trailer</a></td>
+          <td><a href="{{ series.trailer_url }}" target="_blank" class="button">Watch Trailer</a></td>
           <td>{{ series.release_date }}</td>
           <td><a href="{% url 'tayangan:show_halaman_series' series.id %}" class="button">View Details</a></td>
         </tr>
