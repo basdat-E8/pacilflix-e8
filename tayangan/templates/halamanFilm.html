@@ -46,6 +46,13 @@
     padding: 5px;
     border-radius: 4px;
   }
+  .error-message {
+    color: red;
+    background-color: #fdd;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+  }
 </style>
 
 <h1>{{ film_data.title }}</h1>
@@ -59,7 +66,7 @@
   <p>Total Views: <span id="totalViews">{{ film_data.total_views }}</span></p>
   <p>Average Rating: <span id="rating">{{ film_data.rating }}</span></p>
   <p>Synopsis: <span id="synopsis">{{ film_data.synopsis }}</span></p>
-  <p>Film Duration: <span id="duration">{{ film_data.duration }}</span></p>
+  <p>Film Duration: <span id="duration">{{ film_data.duration }} Minutes</span></p>
   <p>Release Date: <span id="releaseDate">{{ film_data.release_date }}</span></p>
   <p>Film URL: <a href="{{ film_data.film_url }}" target="_blank">Watch Here</a></p>
   <p>Genre:</p>
@@ -84,10 +91,37 @@
   <p>Director: <span id="director">{{ film_data.director }}</span></p>
 </div>
 
-<!-- Reviews section can be similarly structured -->
-<div class="section">
-  <h2>Reviews:</h2>
-  <!-- Reviews would be listed here -->
+<div style="padding-top: 60px;">
+  <div class="review-section">
+    <h2>Bagian Ulasan</h2>
+    {% if error_message %}
+      <div class="error-message">{{ error_message }}</div>
+    {% endif %}
+    <form class="review-form" method="POST" action="{% url 'tayangan:show_halaman_film' id=film_data.id %}">
+      {% csrf_token %}
+      <input type="text" id="reviewDescription" name="reviewDescription" placeholder="Input untuk deskripsi ulasan">
+      <select id="rating" name="rating">
+        <option value="5">★★★★★</option>
+        <option value="4">★★★★☆</option>
+        <option value="3">★★★☆☆</option>
+        <option value="2">★★☆☆☆</option>
+        <option value="1">★☆☆☆☆</option>
+      </select>
+      <button type="submit" class="submit-button">Submit</button>
+    </form>
+    
+    <h3>Daftar Ulasan:</h3>
+    <ul class="review-list">
+      {% for review in reviews %}
+        <li>
+          <strong>{{ review.title }}</strong><br>
+          Rating: {{ review.rating }}<br>
+          Deskripsi: {{ review.description }}<br>
+          <small>{{ review.timestamp }} oleh {{ review.username }}</small>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
 </div>
 
 {% endblock content %}

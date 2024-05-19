@@ -11,21 +11,38 @@
     background-color: #1f1f3d; /* dark bluish-gray */
     color: #f0ece3; 
     font-family: Arial, sans-serif;
+    padding: 50px;
   }
   .search-container {
     background-color: #292947; /* darker blue-gray */
     padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 8px;
   }
   input[type="text"] {
     padding: 10px;
     width: 90%;
     margin-bottom: 20px;
     border: 1px solid #3d1f1f; /* dark reddish-brown */
+    border-radius: 4px;
+  }
+  .card {
+    background-color: #292947; /* darker blue */
+    color: #f0ece3;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 20px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  .card h2 {
+    margin: 0.5rem 0;
   }
   table {
     width: 100%;
     border-collapse: collapse;
     background-color: #f0ece3;
+    border-radius: 8px;
+    overflow: hidden;
   }
   th, td {
     border: 1px solid #33335b; /* medium blue-gray */
@@ -37,7 +54,7 @@
     color: #f0ece3; 
   }
   tr:nth-child(even) {
-    background-color: #3d1f1f; /* dark reddish-brown */
+    background-color: #33335b; /* medium blue-gray */
   }
   tr:nth-child(odd) {
     background-color: #292947; /* darker blue-gray */
@@ -45,12 +62,15 @@
   .table-container {
     padding: 20px;
     background-color: #1f1f3d; /* dark bluish-gray */
+    border-radius: 8px;
+    margin-bottom: 20px;
   }
   .table-header {
     background-color: #33335b; /* medium blue-gray */
     color: #f0ece3;
     padding: 10px;
     text-align: center;
+    border-radius: 8px 8px 0 0;
   }
 </style>
 
@@ -61,76 +81,75 @@
     <input type="submit" value="Search">
   </form>
   
-  <div class="table-container">
-    <div class="table-header">Trailers</div>
+  <div class="card">
+    <h2>Top Shows This Week</h2>
     <table>
       <thead>
         <tr>
+          <th>Rank</th>
           <th>Title</th>
           <th>Synopsis</th>
           <th>Trailer URL</th>
           <th>Release Date</th>
+          <th>Total View Last 7 Days</th>
         </tr>
       </thead>
       <tbody>
-        {% for trailer in trailers %}
-          <tr>
-            <td>{{ trailer.title }}</td>
-            <td>{{ trailer.synopsis }}</td>
-            <td><a href="{{ trailer.trailer_url }}" target="_blank">Watch Trailer</a></td>
-            <td>{{ trailer.release_date }}</td>
-          </tr>
-        {% endfor %}
+        <!-- Rows with show data will go here -->
       </tbody>
     </table>
+  </div> 
+
+  <div class="card">
+    <h2>Films</h2>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Synopsis</th>
+            <th>Trailer URL</th>
+            <th>Release Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for film in film_list %}
+            <tr>
+              <td>{{ film.title }}</td>
+              <td>{{ film.synopsis }}</td>
+              <td><a href="{{ film.trailer_url }}" target="_blank">Watch Trailer</a></td>
+              <td>{{ film.release_date }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
   </div>
-  
-  <div class="table-container">
-    <div class="table-header">Films</div>
-    <table>
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Synopsis</th>
-          <th>Trailer URL</th>
-          <th>Release Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for film in film_list %}
+
+  <div class="card">
+    <h2>Series</h2>
+    <div class="table-container">
+      <table>
+        <thead>
           <tr>
-            <td>{{ film.title }}</td>
-            <td>{{ film.synopsis }}</td>
-            <td><a href="{{ film.trailer_url }}" target="_blank">Watch Trailer</a></td>
-            <td>{{ film.release_date }}</td>
+            <th>Title</th>
+            <th>Synopsis</th>
+            <th>Trailer URL</th>
+            <th>Release Date</th>
           </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-  
-  <div class="table-container">
-    <div class="table-header">Series</div>
-    <table>
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Synopsis</th>
-          <th>Trailer URL</th>
-          <th>Release Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for series in series_list %}
-          <tr>
-            <td>{{ series.title }}</td>
-            <td>{{ series.synopsis }}</td>
-            <td><a href="{{ series.trailer_url }}" target="_blank">Watch Trailer</a></td>
-            <td>{{ series.release_date }}</td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {% for series in series_list %}
+            <tr>
+              <td>{{ series.title }}</td>
+              <td>{{ series.synopsis }}</td>
+              <td><a href="{{ series.trailer_url }}" target="_blank">Watch Trailer</a></td>
+              <td>{{ series.release_date }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
   </div>
 
 </div>

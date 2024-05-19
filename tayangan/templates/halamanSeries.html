@@ -9,22 +9,12 @@
 <style>
   body {
     background-color: #1f1f3d; /* dark bluish-gray */
-    color: #f0ece3;
     font-family: Arial, sans-serif;
+    color: #f0ece3; 
     padding: 20px;
   }
-  h1, h2 {
-    color: #f0ece3; 
-  }
-  ul, p {
-    margin: 10px 0;
-    padding: 0;
-  }
-  li {
-    margin-bottom: 5px;
-  }
   .section {
-    background-color: #292947; /* darker bluish-gray */
+    background-color: #292947; /* darker blue-gray */
     padding: 10px;
     margin-bottom: 20px;
     border-radius: 5px;
@@ -38,14 +28,30 @@
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
+    margin: 5px;
   }
   .info {
     background-color: #0b0b29; /* very dark blue */
     padding: 10px;
     border-radius: 5px;
   }
-  .info p, .info ul {
-    margin: 5px 0;
+  ul {
+    list-style-type: disc;
+    padding-left: 20px;
+  }
+  li {
+    margin-bottom: 5px;
+    background-color: #f0ece3;
+    color: #1f1f3d; /* dark blue */
+    padding: 5px;
+    border-radius: 4px;
+  }
+  .error-message {
+    color: red;
+    background-color: #fdd;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
   }
 </style>
 
@@ -86,10 +92,37 @@
   <p>Director: <span id="director">{{ series_data.director }}</span></p>
 </div>
 
-<!-- Include the reviews section here, which you may want to structure similarly -->
-<div class="section">
-  <h2>Reviews:</h2>
-  <!-- Reviews would be listed here -->
+<div style="padding-top: 60px;">
+  <div class="review-section">
+    <h2>Bagian Ulasan</h2>
+    {% if error_message %}
+      <div class="error-message">{{ error_message }}</div>
+    {% endif %}
+    <form class="review-form" method="POST" action="{% url 'tayangan:show_halaman_series' id=series_data.id %}">
+      {% csrf_token %}
+      <input type="text" id="reviewDescription" name="reviewDescription" placeholder="Input untuk deskripsi ulasan">
+      <select id="rating" name="rating">
+        <option value="5">★★★★★</option>
+        <option value="4">★★★★☆</option>
+        <option value="3">★★★☆☆</option>
+        <option value="2">★★☆☆☆</option>
+        <option value="1">★☆☆☆☆</option>
+      </select>
+      <button type="submit" class="submit-button">Submit</button>
+    </form>
+    
+    <h3>Daftar Ulasan:</h3>
+    <ul class="review-list">
+      {% for review in reviews %}
+        <li>
+          <strong>{{ review.title }}</strong><br>
+          Rating: {{ review.rating }}<br>
+          Deskripsi: {{ review.description }}<br>
+          <small>{{ review.timestamp }} oleh {{ review.username }}</small>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
 </div>
 
 {% endblock content %}
