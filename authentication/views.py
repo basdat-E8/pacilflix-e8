@@ -37,7 +37,6 @@ def register(request):
         negara_asal = request.POST.get('asal_negara')
         
         tes = query("INSERT INTO pengguna (username, password, negara_asal) VALUES (%s, %s, %s)", (username, password, negara_asal))
-        print(type(tes))
         if isinstance(tes, Exception): 
             context['message'] = "Username sudah ada. Silakan coba lagi"
         else:
