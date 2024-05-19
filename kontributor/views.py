@@ -6,19 +6,19 @@ from django.http import JsonResponse
 def logged_in(request):
     return request.session.get('username', None) is not None
 
-def show_kontributor(request, id_tayangan):
+def show_kontributor(request):
     if not logged_in(request):
-        return redirect("authentication:login")
+        return redirect("authentication:logout")
     
     response = {
-        "id_tayangan": id_tayangan
+        "is_logged_in": True
     }
-
+    
     return render(request, 'kontributor.html', response)
 
-def get_daftar_kontributor(request, id_tayangan, filter_by):
+def get_daftar_kontributor(request, filter_by):
     if not logged_in(request):
-        return redirect("authentication:login")
+        return redirect("authentication:logout")
     
     if request.method == 'GET':
         response = {}
@@ -40,8 +40,6 @@ def get_daftar_kontributor(request, id_tayangan, filter_by):
                     penulis_skenario p ON c.id = p.id
                 JOIN
                     MENULIS_SKENARIO_TAYANGAN mt ON c.id = mt.id_penulis_skenario
-                WHERE
-                    mt.id_tayangan = '{id_tayangan}'
 
                 UNION ALL
 
@@ -59,8 +57,6 @@ def get_daftar_kontributor(request, id_tayangan, filter_by):
                     pemain pm ON c.id = pm.id
                 JOIN
                     MEMAINKAN_TAYANGAN mt ON c.id = mt.id_pemain
-                WHERE
-                    mt.id_tayangan = '{id_tayangan}'
 
                 UNION ALL
 
@@ -78,9 +74,6 @@ def get_daftar_kontributor(request, id_tayangan, filter_by):
                     sutradara s ON c.id = s.id
                 JOIN
                     TAYANGAN t ON c.id = t.id_sutradara
-                WHERE
-                    t.id = '{id_tayangan}'
-
             """
         else:
             filter_by = filter_by.upper()
@@ -89,22 +82,16 @@ def get_daftar_kontributor(request, id_tayangan, filter_by):
                 'PENULIS_SKENARIO': f"""
                     JOIN
                         MENULIS_SKENARIO_TAYANGAN mt ON c.id = mt.id_penulis_skenario
-                    WHERE
-                        mt.id_tayangan = '{id_tayangan}'
                 """,
 
                 'PEMAIN': f"""
                     JOIN
                         MEMAINKAN_TAYANGAN mt ON c.id = mt.id_pemain
-                    WHERE
-                        mt.id_tayangan = '{id_tayangan}'
                 """,
 
                 'SUTRADARA': f"""
                     JOIN
                         TAYANGAN t ON c.id = t.id_sutradara
-                    WHERE
-                        t.id = '{id_tayangan}'
                 """
             }
 

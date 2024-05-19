@@ -83,7 +83,7 @@
             tableContent.innerHTML = '';
             
             const tipe = document.querySelector('select').value;
-            const response = await fetch(`/kontributor/get-list/{{ id_tayangan }}/${tipe}`);
+            const response = await fetch(`/kontributor/get-list/${tipe}`);
             var data = (await response.json()).data;
 
             data.forEach(kontributor => {
@@ -99,8 +99,6 @@
         }
 
         document.onContentLoaded = refreshTable();
-
-        showNavbar(true);
     </script>
 
 {% endblock content %}
