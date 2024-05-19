@@ -7,8 +7,8 @@ import datetime
 
 def index(request):
     username = request.session.get('username')
-    # if not username:
-    #     return redirect('authentication:login')
+    if not username:
+        return redirect('authentication:login')
 
     favorites = get_favorites(username)
     available_shows = get_available_shows(username)

@@ -5,9 +5,9 @@ from utils.query import get_db_connection
 from django.http import JsonResponse
 
 def index(request):
-    username = 'carolyn64'
-    # if not username:
-    #     return redirect('authentication:login')
+    username = request.session.get('username')
+    if not username:
+        return redirect('authentication:login')
 
     shows = get_downloaded_shows(username)
     available_shows = get_available_shows(username)
