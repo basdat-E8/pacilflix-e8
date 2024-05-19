@@ -46,6 +46,13 @@
     padding: 5px;
     border-radius: 4px;
   }
+  .error-message {
+    color: red;
+    background-color: #fdd;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+  }
 </style>
 
 <h1>{{ film_data.title }}</h1>
@@ -87,6 +94,9 @@
 <div style="padding-top: 60px;">
   <div class="review-section">
     <h2>Bagian Ulasan</h2>
+    {% if error_message %}
+      <div class="error-message">{{ error_message }}</div>
+    {% endif %}
     <form class="review-form" method="POST" action="{% url 'tayangan:show_halaman_film' id=film_data.id %}">
       {% csrf_token %}
       <input type="text" id="reviewDescription" name="reviewDescription" placeholder="Input untuk deskripsi ulasan">

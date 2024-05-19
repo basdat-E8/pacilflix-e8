@@ -85,10 +85,19 @@ def show_halaman_film(request, id):
 
         with connection.cursor() as cursor:
             cursor.execute("""
-                INSERT INTO pacilflix.ulasan (id_tayangan, rating, deskripsi, timestamp, username)
-                VALUES (%s, %s, %s, %s, %s)
-            """, [id, rating, review_description, timezone.now(), username])
-        return redirect('tayangan:show_halaman_film', id=id)
+                SELECT COUNT(*) FROM pacilflix.ulasan
+                WHERE id_tayangan = %s AND username = %s
+            """, [id, username])
+            review_count = cursor.fetchone()[0]
+
+            if review_count > 0:
+                context['error_message'] = "Anda sudah memberikan ulasan pada film ini."
+            else:
+                cursor.execute("""
+                    INSERT INTO pacilflix.ulasan (id_tayangan, rating, deskripsi, timestamp, username)
+                    VALUES (%s, %s, %s, %s, %s)
+                """, [id, rating, review_description, timezone.now(), username])
+                return redirect('tayangan:show_halaman_film', id=id)
 
     with connection.cursor() as cursor:
         # Fetch film details
@@ -179,13 +188,13 @@ def show_halaman_film(request, id):
             for row in cursor.fetchall()
         ]
 
-    context = {
+    context.update({
         'film_data': film_data,
         'genres': genre_list,
         'cast': cast_list,
         'screenwriters': screenwriter_list,
         'reviews': reviews
-    }
+    })
     return render(request, "halamanFilm.html", context)
 
 def show_halaman_series(request, id):
@@ -201,14 +210,23 @@ def show_halaman_series(request, id):
     if request.method == "POST":
         review_description = request.POST.get('reviewDescription')
         rating = request.POST.get('rating')
-        username = request.session.get('username')  # Ensure 'username' is fetched from the session
+        username = request.session.get('username')
 
         with connection.cursor() as cursor:
             cursor.execute("""
-                INSERT INTO pacilflix.ulasan (id_tayangan, rating, deskripsi, timestamp, username)
-                VALUES (%s, %s, %s, %s, %s)
-            """, [id, rating, review_description, timezone.now(), username])
-        return redirect('tayangan:show_halaman_series', id=id)
+                SELECT COUNT(*) FROM pacilflix.ulasan
+                WHERE id_tayangan = %s AND username = %s
+            """, [id, username])
+            review_count = cursor.fetchone()[0]
+
+            if review_count > 0:
+                context['error_message'] = "Anda sudah pernah memberikan ulasan pada series ini."
+            else:
+                cursor.execute("""
+                    INSERT INTO pacilflix.ulasan (id_tayangan, rating, deskripsi, timestamp, username)
+                    VALUES (%s, %s, %s, %s, %s)
+                """, [id, rating, review_description, timezone.now(), username])
+                return redirect('tayangan:show_halaman_series', id=id)
 
     with connection.cursor() as cursor:
         # Fetch series details
@@ -316,14 +334,14 @@ def show_halaman_series(request, id):
             for row in cursor.fetchall()
         ]
 
-    context = {
+    context.update({
         'series_data': series_data,
         'genres': genre_list,
         'cast': cast_list,
         'screenwriters': screenwriter_list,
         'episodes': episode_list,
         'reviews': reviews
-    }
+    })
     return render(request, "halamanSeries.html", context)
 
 def show_halaman_episode(request, id_series, sub_judul):
