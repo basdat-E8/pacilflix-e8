@@ -36,13 +36,10 @@ def register(request):
         password = request.POST.get('password')
         negara_asal = request.POST.get('asal_negara')
         
-        user = query("SELECT username FROM pengguna WHERE username = %s", (username,))
-
-        if user:
-            context['message'] = "Username sudah ada"
+        tes = query("INSERT INTO pengguna (username, password, negara_asal) VALUES (%s, %s, %s)", (username, password, negara_asal))
+        if isinstance(tes, Exception): 
+            context['message'] = "Username sudah ada. Silakan coba lagi"
         else:
-            tes = query("INSERT INTO pengguna (username, password, negara_asal) VALUES (%s, %s, %s)", (username, password, negara_asal))
-
             request.session['username'] = username
             return redirect('authentication:login')
     
@@ -51,4 +48,4 @@ def register(request):
 def logout(request):
     if 'username' in request.session:
         del request.session['username']
-    return redirect('main:show_landing') # KE LANDING PAGE JE
+    return redirect('main:show_landing')
